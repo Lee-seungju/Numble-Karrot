@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<div th:if="${session.member eq null}">
+    <div style="text-align:center">
+        <img src="https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6f3481f5-1cfd-4ba8-9640-fd3fd9796cd2%2Fcarrot.png&blockId=b38dd96a-bc76-4231-8049-61750fec6420&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNTY1MjE5LCJleHAiOjE2NDE1NzYwMTl9.tZL97UgFnK_L81CT2B7yzaRd9MXzNLY_WOx-LUtqoAM"
+             alt="No image">
+        <h1>당신 근처의 Karrot 마켓</h1>
+        <h2>이제 내 동내에서 <br>간편하게 중고거래하자</h2>
+        <br>
+        <br>
+        <br>
+        <div>
+            <button type="button" onclick="location.href=''">
+                <h1>시작하기</h1>
+            </button>
+        </div>
+        <br>
+        <div>
+            <h2>이미 계정이 있으신가요? <a href="">로그인</a> </h2>
+        </div>
+    </div>
+</div> <!-- /container -->
+<div th:unless="${session.member eq null}">
+    <div style="border-bottom: 1px solid">
+        <table>
+            <td style="width: 300px"><h1>개발자님 동네</h1></td>
+            <form action="" method="post">
+                <td style="width: 400px"><input  type="text" placeholder="검색어를 입력하세요" size="40" style="height: 80px; border-bottom: blue 1px solid; border-left: 0px; border-right: 0px; border-top: 0px; font-size: 30px"></td>
+                <td><button type="submit"><a style="font-size: 30px">검색</a></button></td>
+            </form>
+        </table>
+    </div>
+</div>
+</body>
+</html>
