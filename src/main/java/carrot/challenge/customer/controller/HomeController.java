@@ -1,13 +1,13 @@
-package carrot.challenge;
+package carrot.challenge.customer.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class ForTest {
+public class HomeController {
 
-    @GetMapping()
-    public String test() {
+    @GetMapping
+    public String home() {
         return "index";
     }
 }

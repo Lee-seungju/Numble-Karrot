@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="/css/addUser-form.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/addUser-form.js"></script>
+<head>
+</head>
+<body>
+<h1>로그인</h1>
+<form name="add_user" action="/customer/login" method="post">
+    <div>이메일(ID)
+        <br>
+        <input type="text" id="email" name="email">
+        <br>
+        <br>
+    </div>
+    <div>비밀번호(PW)
+        <br>
+        <input type="text" id="password" name="password">
+        <br>
+        <br>
+    </div>
+</form>
+<div>
+    <button onclick="login_check()">
+        <label>로그인</label>
+    </button>
+</div>
+</body>

@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/index.css" rel="stylesheet" type="text/css">
 <head>
-    <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div th:if="${session.member eq null}">
@@ -14,13 +14,13 @@
         <br>
         <br>
         <div>
-            <button type="button" onclick="location.href=''">
+            <button type="button" onclick="location.href='/customer/add-user'">
                 <h1>시작하기</h1>
             </button>
         </div>
         <br>
         <div>
-            <h2>이미 계정이 있으신가요? <a href="">로그인</a> </h2>
+            <h2>이미 계정이 있으신가요? <a href="/customer/login">로그인</a> </h2>
         </div>
     </div>
 </div>
