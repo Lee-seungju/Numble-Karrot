@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
-
+    <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div th:if="${session.member eq null}">
     <div style="text-align:center">
-        <img src="https://oopy.lazyrockets.com/api/v2/member/image?src=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6f3481f5-1cfd-4ba8-9640-fd3fd9796cd2%2Fcarrot.png&blockId=b38dd96a-bc76-4231-8049-61750fec6420&t=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0bmFtZSI6Ind3dy5udW1ibGUuaXQiLCJyb2xlIjoiYXBpIiwiaWF0IjoxNjQxNTY1MjE5LCJleHAiOjE2NDE1NzYwMTl9.tZL97UgFnK_L81CT2B7yzaRd9MXzNLY_WOx-LUtqoAM"
-             alt="No image">
+        <img class="main" src="images/karrot.png" alt="No image">
         <h1>당신 근처의 Karrot 마켓</h1>
         <h2>이제 내 동내에서 <br>간편하게 중고거래하자</h2>
         <br>
@@ -23,17 +23,51 @@
             <h2>이미 계정이 있으신가요? <a href="">로그인</a> </h2>
         </div>
     </div>
-</div> <!-- /container -->
+</div>
 <div th:unless="${session.member eq null}">
-    <div style="border-bottom: 1px solid">
-        <table>
-            <td style="width: 300px"><h1>개발자님 동네</h1></td>
-            <form action="" method="post">
-                <td style="width: 400px"><input  type="text" placeholder="검색어를 입력하세요" size="40" style="height: 80px; border-bottom: blue 1px solid; border-left: 0px; border-right: 0px; border-top: 0px; font-size: 30px"></td>
-                <td><button type="submit"><a style="font-size: 30px">검색</a></button></td>
-            </form>
+    <div id="body-wrapper">
+        <div style="border-bottom: 1px solid">
+                <h1>개발자님 동네</h1>
+                <form name="search_form" action="" method="post">
+                    <div>
+                        <input class="search" name="search_text" type="text" placeholder="검색어를 입력하세요" size="40">
+                        <a class="search-button" onclick="document.search_form.submit()">
+                            <img class="search-img" src="images/search.png" alt="No image">
+                        </a>
+                    </div>
+                </form>
+        </div>
+        <table style="border-bottom: black 1px solid">
+            <tr>
+                <td style="width: 30%">
+                    <a onclick="" style="cursor: pointer">
+                        <img src="images/thumbnail1.png" alt="No image" style="width: 80%; height: auto">
+                    </a>
+                </td>
+                <td style="padding-left: 3%">
+                    <div class="font-right">제목</div>
+                    <div class="font-right">장소</div>
+                    <div class="font-right">가격</div>
+                    <div style="padding-left: 60%">
+                        <img class="image-right" src="images/comment.png">1
+                        <img class="image-right" src="images/interest.png">2
+                    </div>
+                </td>
+            </tr>
         </table>
     </div>
+    <footer class="footer">
+        <div style="float: left; width: 50%">
+            <a onclick="" style="cursor: pointer">
+                <img class="footer-img" src="images/home.png" alt="No image">
+            </a>
+        </div>
+        <div style="float: left; width: 50%">
+            <a onclick="" style="cursor: pointer">
+                <img class="footer-img" src="images/mypage.png" alt="No image">
+            </a>
+        </div>
+    </footer>
 </div>
 </body>
 </html>
