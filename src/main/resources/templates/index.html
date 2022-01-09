@@ -5,7 +5,7 @@
 <head>
 </head>
 <body>
-<div th:if="${session.member eq null}">
+<div th:if="${session.customer eq null}">
     <div style="text-align:center">
         <img class="main" src="images/karrot.png" alt="No image">
         <h1>당신 근처의 Karrot 마켓</h1>
@@ -24,7 +24,7 @@
         </div>
     </div>
 </div>
-<div th:unless="${session.member eq null}">
+<div th:unless="${session.customer eq null}">
     <div id="body-wrapper">
         <div style="border-bottom: 1px solid">
                 <h1>개발자님 동네</h1>
