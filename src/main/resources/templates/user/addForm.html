@@ -1,46 +1,55 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/css/addUser-form.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/js/addUser-form.js"></script>
+<link th:href="@{/css/addUser-form.css}" rel="stylesheet" type="text/css">
+<script type="text/javascript" th:src="@{/js/addUser-form.js}"></script>
 <head>
 </head>
 <body>
 <h1>회원가입</h1>
-    <form name="add_user" th:action method="post">
-        <div>이메일(ID)
-            <br>
-            <input type="text" id="email" name="email">
-            <br>
-            <br>
+    <form class="container" name="add_user" th:action th:object="${addForm}" method="post">
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메세지</p>
         </div>
-        <div>비밀번호(PW)
-            <br>
-            <input type="password" id="password" name="password">
-            <br>
-            <br>
+        <div class="item">이메일(ID)<br>
+            <input type="text" id="email" th:field="*{email}"
+                   th:errorclass="field-error" name="email">
+            <div class="field-error" th:errors="*{email}">
+                이메일 오류
+            </div>
         </div>
-        <div>이름
-            <br>
-            <input type="text" id="username" name="username">
-            <br>
-            <br>
+        <div class="item">비밀번호(PW)<br>
+            <input type="password" id="password" th:field="*{password}"
+                   th:errorclass="field-error" name="password">
+            <div class="field-error" th:errors="*{password}">
+                비밀번호 오류
+            </div>
         </div>
-        <div>핸드폰번호
-            <br>
-            <input type="text" id="phone_number" name="phone_number">
-            <br>
-            <br>
+        <div class="item">이름<br>
+            <input type="text" id="username" th:field="*{username}"
+                   th:errorclass="field-error" name="username">
+            <div class="field-error" th:errors="*{username}">
+                이름 오류
+            </div>
         </div>
-        <div>닉네임
-            <br>
-            <input type="text" id="nickname" name="nickname">
-            <br>
-            <br>
+        <div class="item">핸드폰번호<br>
+            <input type="text" id="phone_number" th:field="*{phone_number}"
+                   th:errorclass="field-error" name="phone_number">
+            <div class="field-error" th:errors="*{phone_number}">
+                핸드폰번호 오류
+            </div>
         </div>
-        <div>
+        <div class="item">닉네임<br>
+            <input type="text" id="nickname" th:field="*{nickname}"
+                   th:errorclass="field-error" name="nickname">
+            <div class="field-error" th:errors="*{nickname}">
+                닉네임 오류
+            </div>
+        </div>
+        <div class="item">
             <button type="submit">
-                <label>가입하기</label>
+                가입하기
             </button>
         </div>
     </form>

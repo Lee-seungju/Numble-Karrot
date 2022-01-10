@@ -1,12 +1,12 @@
-package carrot.challenge.user.repository;
+package carrot.challenge.domain.user.repository;
 
-import carrot.challenge.user.dto.User;
+import carrot.challenge.domain.user.dto.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class MemoryUserRepository implements UserRepository {
 
     private static final Map<Long, User> data = new HashMap<>();
     private static long sequence = 0L;
@@ -25,29 +25,23 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByEmail(String userEmail) {
-        for (User a : data.values()) {
-            if (userEmail.equals(a.getEmail()))
-                return Optional.ofNullable(a);
-        }
-        return Optional.ofNullable(null);
+        return findAll().stream()
+                .filter(m -> m.getEmail().equals(userEmail))
+                .findFirst();
     }
 
     @Override
     public Optional<User> findByNickname(String userNickname) {
-        for (User a : data.values()) {
-            if (userNickname.equals(a.getNickname()))
-                return Optional.ofNullable(a);
-        }
-        return Optional.ofNullable(null);
+        return findAll().stream()
+                .filter(m -> m.getNickname().equals(userNickname))
+                .findFirst();
     }
 
     @Override
     public Optional<User> findByPhoneNumber(String userPhoneNumber) {
-        for (User a : data.values()) {
-            if (userPhoneNumber.equals(a.getPhone_number()))
-                return Optional.ofNullable(a);
-        }
-        return Optional.ofNullable(null);
+        return findAll().stream()
+                .filter(m -> m.getPhone_number().equals(userPhoneNumber))
+                .findFirst();
     }
 
     @Override

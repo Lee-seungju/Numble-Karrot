@@ -1,10 +1,9 @@
-package carrot.challenge.user.dto;
+package carrot.challenge.web.add;
 
 import lombok.Data;
 
 @Data
-public class User {
-    private Long id;
+public class AddForm {
     private String email;
     private String password;
     private String username;

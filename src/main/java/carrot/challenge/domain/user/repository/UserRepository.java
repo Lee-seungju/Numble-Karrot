@@ -1,6 +1,6 @@
-package carrot.challenge.user.repository;
+package carrot.challenge.domain.user.repository;
 
-import carrot.challenge.user.dto.User;
+import carrot.challenge.domain.user.dto.User;
 
 import java.util.List;
 import java.util.Optional;
