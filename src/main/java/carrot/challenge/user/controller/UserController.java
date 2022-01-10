@@ -44,6 +44,7 @@ public class UserController {
 
         if (userId == null)
             return mav;
+
         Cookie setCookie = new Cookie("id", Long.toString(userId));
         setCookie.setMaxAge(60*60*24*30);
         response.addCookie(setCookie);
@@ -92,7 +93,7 @@ public class UserController {
         if (userId == null) {
             needLogin(mav);
         } else {
-            mav.setViewName("/user/userForm");
+            mav.setViewName("user/userForm");
             User user = userService.findById(userId);
             mav.addObject("user", user);
         }
