@@ -1,9 +1,9 @@
-package carrot.challenge.customer.dto;
+package carrot.challenge.user.dto;
 
 import lombok.Data;
 
 @Data
-public class Customer {
+public class User {
     private Long id;
     private String email;
     private String password;

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/css/userForm.css}" rel="stylesheet" type="text/css">
+<script type="text/javascript" th:src="@{js/userForm.js}"></script>
+<head>
+</head>
+<body>
+<div id="body-wrapper">
+        <div style="border-bottom: 1px solid">
+            <h1>개발자님 동네</h1>
+            <form name="search_form" action="" method="post">
+                <div>
+                    <input class="search" name="search_text" type="text" placeholder="검색어를 입력하세요" size="40">
+                    <a class="search-button" onclick="document.search_form.submit()">
+                        <img class="search-img" th:src="@{/images/search.png}" alt="No image">
+                    </a>
+                </div>
+            </form>
+        </div>
+    <div id="home">
+        <table style="border-bottom: black 1px solid;">
+            <tr>
+                <td style="width: 30%">
+                    <a onclick="" style="cursor: pointer">
+                        <img src="images/thumbnail1.png"
+                             th:src="@{/images/thumbnail1.png}" alt="No image" style="width: 80%; height: auto">
+                    </a>
+                </td>
+                <td style="padding-left: 3%">
+                    <div class="font-right">제목</div>
+                    <div class="font-right">장소</div>
+                    <div class="font-right">가격</div>
+                    <div style="padding-left: 60%">
+                        <img class="image-right" th:src="@{/images/comment.png}">1
+                        <img class="image-right" th:src="@{/images/interest.png}">2
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="mykarrot" style="display: none; text-align: center">
+        <table id="myKarrotTable">
+            <tr>
+                <td>
+                    <img th:src="@{/images/defaultProfile.png}" alt="No image" style="width: 20%; height: auto">
+                </td>
+                <td>
+                    <h2 th:value="${user.nickname}">닉네임</h2>
+                </td>
+            </tr>
+            <div>
+                <button th:onclick="">
+                    <h2>프로필 수정</h2>
+                </button>
+            </div>
+            <tr>
+                <td>
+                    <img th:src="@{/images/productLog.png}" alt="No image" style="width:20%; height: auto">
+                </td>
+                <td>
+                    <h2 th:onclick="">판매내역</h2>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img th:src="@{/images/interest.png}" alt="No image" style="width: 20%; height: auto">
+                </td>
+                <td>
+                    <h2 th:onclick="">관심목록</h2>
+                </td>
+            </tr>
+            <div>
+                <h2 th:onclick="|location.href='@{/user/logout}'|">Log out</h2>
+            </div>
+        </table>
+    </div>
+</div>
+<footer class="footer">
+    <div style="float: left; width: 50%">
+        <a onclick="toggle_home()" style="cursor: pointer">
+            <img class="footer-img" src="images/home.png"
+                 th:src="@{/images/home.png}" alt="No image">
+        </a>
+    </div>
+    <div style="float: left; width: 50%">
+        <a onclick="toggle_myKarrot()" style="cursor: pointer">
+            <img class="footer-img" src="images/mypage.png"
+                 th:src="@{/images/mypage.png}" alt="No image">
+        </a>
+    </div>
+</footer>
+</body>
+</html>

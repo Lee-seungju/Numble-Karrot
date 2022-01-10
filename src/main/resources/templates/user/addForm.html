@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>회원가입</h1>
-    <form name="add_user" action="/customer/add-user" method="post">
+    <form name="add_user" th:action method="post">
         <div>이메일(ID)
             <br>
             <input type="text" id="email" name="email">
@@ -16,7 +16,7 @@
         </div>
         <div>비밀번호(PW)
             <br>
-            <input type="text" id="password" name="password">
+            <input type="password" id="password" name="password">
             <br>
             <br>
         </div>
@@ -38,10 +38,10 @@
             <br>
             <br>
         </div>
+        <div>
+            <button type="submit">
+                <label>가입하기</label>
+            </button>
+        </div>
     </form>
-    <div>
-        <button onclick="check()">
-            <label>가입하기</label>
-        </button>
-    </div>
 </body>

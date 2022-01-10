@@ -1,0 +1,17 @@
+h1 {
+    padding-left: 30%;
+    height: 100px;
+}
+div {
+    text-align: center;
+    font-size: 30px;
+    height: 130px;
+}
+input {
+    text-align: center;
+    font-size: 30px;
+}
+button {
+    font-size: 30px;
+    height: 100px;
+}

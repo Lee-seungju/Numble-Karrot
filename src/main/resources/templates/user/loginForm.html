@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>로그인</h1>
-<form name="add_user" action="/customer/login" method="post">
+<form name="add_user" th:action method="post">
     <div>이메일(ID)
         <br>
         <input type="text" id="email" name="email">
@@ -16,7 +16,7 @@
     </div>
     <div>비밀번호(PW)
         <br>
-        <input type="text" id="password" name="password">
+        <input type="password" id="password" name="password">
         <br>
         <br>
     </div>

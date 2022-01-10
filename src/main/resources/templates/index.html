@@ -5,7 +5,7 @@
 <head>
 </head>
 <body>
-<div th:if="${session.customer eq null}">
+<div>
     <div style="text-align:center">
         <img class="main" src="images/karrot.png" alt="No image">
         <h1>당신 근처의 Karrot 마켓</h1>
@@ -14,60 +14,16 @@
         <br>
         <br>
         <div>
-            <button type="button" onclick="location.href='/customer/add-user'">
+            <button type="button" th:onclick="|location.href='@{/user/add}'|">
                 <h1>시작하기</h1>
             </button>
         </div>
         <br>
         <div>
-            <h2>이미 계정이 있으신가요? <a href="/customer/login">로그인</a> </h2>
+            <h2>이미 계정이 있으신가요?
+                <a th:href="@{/user/login}">로그인</a>
+            </h2>
         </div>
     </div>
-</div>
-<div th:unless="${session.customer eq null}">
-    <div id="body-wrapper">
-        <div style="border-bottom: 1px solid">
-                <h1>개발자님 동네</h1>
-                <form name="search_form" action="" method="post">
-                    <div>
-                        <input class="search" name="search_text" type="text" placeholder="검색어를 입력하세요" size="40">
-                        <a class="search-button" onclick="document.search_form.submit()">
-                            <img class="search-img" src="images/search.png" alt="No image">
-                        </a>
-                    </div>
-                </form>
-        </div>
-        <table style="border-bottom: black 1px solid">
-            <tr>
-                <td style="width: 30%">
-                    <a onclick="" style="cursor: pointer">
-                        <img src="images/thumbnail1.png" alt="No image" style="width: 80%; height: auto">
-                    </a>
-                </td>
-                <td style="padding-left: 3%">
-                    <div class="font-right">제목</div>
-                    <div class="font-right">장소</div>
-                    <div class="font-right">가격</div>
-                    <div style="padding-left: 60%">
-                        <img class="image-right" src="images/comment.png">1
-                        <img class="image-right" src="images/interest.png">2
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <footer class="footer">
-        <div style="float: left; width: 50%">
-            <a onclick="" style="cursor: pointer">
-                <img class="footer-img" src="images/home.png" alt="No image">
-            </a>
-        </div>
-        <div style="float: left; width: 50%">
-            <a onclick="" style="cursor: pointer">
-                <img class="footer-img" src="images/mypage.png" alt="No image">
-            </a>
-        </div>
-    </footer>
 </div>
 </body>
-</html>
