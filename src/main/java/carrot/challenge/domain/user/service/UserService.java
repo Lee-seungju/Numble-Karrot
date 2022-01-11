@@ -1,10 +1,8 @@
 package carrot.challenge.domain.user.service;
 
-import carrot.challenge.web.add.AddForm;
+import carrot.challenge.domain.user.dto.AddForm;
 import carrot.challenge.domain.user.dto.User;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public interface UserService {

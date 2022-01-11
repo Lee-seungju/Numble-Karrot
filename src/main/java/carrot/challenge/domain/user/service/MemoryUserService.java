@@ -1,7 +1,8 @@
 package carrot.challenge.domain.user.service;
 
-import carrot.challenge.web.add.AddForm;
+import carrot.challenge.domain.user.dto.AddForm;
 import carrot.challenge.domain.user.dto.User;
+import carrot.challenge.domain.user.repository.MemoryUserRepository;
 import carrot.challenge.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MemoryUserService implements UserService {
 
-    private final UserRepository userRepository;
+    private final MemoryUserRepository memoryUserRepository;
 
     @Override
     public void justSave(User user) {
-        userRepository.save(user);
+        memoryUserRepository.save(user);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class MemoryUserService implements UserService {
 //            User saveUser = userRepository.save(makeUserFromAddForm(addForm));
 //            return saveUser.getId();
 //        }
-        User saveUser = userRepository.save(makeUserFromAddForm(addForm));
+        User saveUser = memoryUserRepository.save(makeUserFromAddForm(addForm));
 
         return saveUser.getId();
     }
@@ -71,21 +72,21 @@ public class MemoryUserService implements UserService {
 
     @Override
     public Optional<User> findById(Long userId) {
-        return userRepository.findById(userId);
+        return memoryUserRepository.findById(userId);
     }
 
     @Override
     public Optional<User> findByEmail(String userEmail) {
-        return userRepository.findByEmail(userEmail);
+        return memoryUserRepository.findByEmail(userEmail);
     }
 
     @Override
     public Optional<User> findByPhoneNumber(String userPN) {
-        return userRepository.findByPhoneNumber(userPN);
+        return memoryUserRepository.findByPhoneNumber(userPN);
     }
 
     @Override
     public Optional<User> findByNickName(String userNick) {
-        return userRepository.findByNickname(userNick);
+        return memoryUserRepository.findByNickname(userNick);
     }
 }

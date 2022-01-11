@@ -1,4 +1,4 @@
-package carrot.challenge.web.login;
+package carrot.challenge.domain.user.dto;
 
 import lombok.Data;
 

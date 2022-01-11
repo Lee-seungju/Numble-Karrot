@@ -1,5 +1,6 @@
 package carrot.challenge.web.add;
 
+import carrot.challenge.domain.user.dto.AddForm;
 import carrot.challenge.domain.user.service.UserService;
 import carrot.challenge.web.validation.AddValidation;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;

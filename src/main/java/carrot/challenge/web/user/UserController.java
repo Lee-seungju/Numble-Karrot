@@ -26,7 +26,7 @@ public class UserController {
 
         // 쿠키값에 따라서 현재 로그인을 한 상태인지 아닌지 확인한다.
         // 데이터베이스 연결이 되어야 확실히 구동되는 파트
-        if (userId == null) {
+        if (userId == null || userService.findById(userId).isEmpty()) {
             needLogin(mav);
         } else {
             mav.setViewName("user/userForm");
