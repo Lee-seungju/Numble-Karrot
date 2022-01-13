@@ -1,7 +1,7 @@
 package carrot.challenge.web.validation;
 
 import carrot.challenge.domain.user.service.UserService;
-import carrot.challenge.domain.user.dto.AddForm;
+import carrot.challenge.web.add.AddForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/css/editUserForm.css}" rel="stylesheet" type="text/css">
+<head>
+</head>
+<body>
+<h1>정보 수정</h1>
+<div id="mykarrot" style="text-align: center">
+    <form class="container" th:action method="post" enctype="multipart/form-data">
+        <input name="id" th:value="${myPageForm.id}" style="display: none">
+        <div class="item">
+            <img th:if="${myPageForm.storeFileName} eq null" th:src="@{/images/defaultProfile.png}" alt="No image" style="max-width: 100px; max-height: 100px">
+            <img th:unless="${myPageForm.storeFileName} eq null" th:src="|/user/images/${myPageForm.storeFileName}|" style="max-width: 100px; max-height: 100px">
+            <div>
+                <input type="file" name="imageFile">
+            </div>
+        </div>
+        <div class="item">
+            <h2>닉네임</h2>
+            <div>
+                <input type="text" class="inputPlace" name="nickname" th:value="${myPageForm.nickname}">
+            </div>
+        </div>
+        <div class="item">
+            <button type="submit" class="submitButton">
+                <h2>완료</h2>
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

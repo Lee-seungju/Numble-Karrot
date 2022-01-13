@@ -1,6 +1,5 @@
 package carrot.challenge.web.add;
 
-import carrot.challenge.domain.user.dto.AddForm;
 import carrot.challenge.domain.user.service.UserService;
 import carrot.challenge.web.validation.AddValidation;
 import lombok.RequiredArgsConstructor;

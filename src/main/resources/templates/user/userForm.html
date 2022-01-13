@@ -17,32 +17,35 @@
         </a>
     </div>
 </form>
-<div id="home-controller" class="home-container">
-    <div class="home-item">
-        <a onclick="" style="cursor: pointer">
-            <img th:src="@{/images/thumbnail1.png}" alt="No image" style="width: 80%; height: auto">
-        </a>
-    </div>
-    <div class="home-item">제목</div>
-    <div class="home-item">장소</div>
-    <div class="home-item">가격</div>
-    <div class="home-item">
-        <img class="image-right" th:src="@{/images/comment.png}">1
-    </div>
-    <div class="home-item">
-        <img class="image-right" th:src="@{/images/interest.png}">2
+<div class="home-home">
+    <div id="home-controller" class="home-container">
+        <div class="home-item">
+            <a onclick="" style="cursor: pointer">
+                <img th:src="@{/images/thumbnail1.png}" alt="No image" style="width: 80%; height: auto">
+            </a>
+        </div>
+        <div class="home-item">제목</div>
+        <div class="home-item">장소</div>
+        <div class="home-item">가격</div>
+        <div class="home-item">
+            <img class="image-right" th:src="@{/images/comment.png}">1
+        </div>
+        <div class="home-item">
+            <img class="image-right" th:src="@{/images/interest.png}">2
+        </div>
     </div>
 </div>
 <div id="mykarrot" style="display: none; text-align: center">
     <div class="container">
         <div class="item">
-            <img th:src="@{/images/defaultProfile.png}" alt="No image" style="width: 20%; height: auto">
+            <img th:if="${#strings.isEmpty(user.storeFileName)}" th:src="@{/images/defaultProfile.png}" alt="No image" style="max-width: 50px; max-height: 50px">
+            <img th:unless="${#strings.isEmpty(user.storeFileName)}" th:src="|/user/images/${user.storeFileName}|" style="max-width: 50px; max-height: 50px">
         </div>
         <div class="item">
             <h2 th:value="${user.nickname}">닉네임</h2>
         </div>
         <div class="item">
-            <button th:onclick="">
+            <button th:onclick="|location.href='@{/user/edit}'|">
                 <h2>프로필 수정</h2>
             </button>
         </div>
@@ -64,6 +67,11 @@
     </div>
 </div>
 <footer class="footer">
+    <div class="footer-item">
+        <a th:href="@{/item/new}">
+            <img class="footer-img" th:src="@{/images/plus.png}" alt="No image" >
+        </a>
+    </div>
     <div class="footer-item">
         <a onclick="toggle_home()" style="cursor: pointer">
             <img class="footer-img" src="images/home.png"

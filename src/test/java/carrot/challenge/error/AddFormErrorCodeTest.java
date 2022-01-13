@@ -12,8 +12,22 @@ public class AddFormErrorCodeTest {
     MessageCodesResolver codesResolver = new DefaultMessageCodesResolver();
 
     @Test
-    void messageCodeResolverObject() {
-        String[] messageCodes = codesResolver.resolveMessageCodes("required", "email");
-        assertThat(messageCodes).containsExactly("required.email", "required");
+    void required관련_에러메시지_테스트() {
+        String[] message = {"email", "password", "nickname", "username", "phone_number"};
+        for (String msg : message) {
+            String addMsg = "required." + msg;
+            String[] messageCodes = codesResolver.resolveMessageCodes("required", msg);
+            assertThat(messageCodes).containsExactly(addMsg, "required");
+        }
+    }
+
+    @Test
+    void already관련_에러메시지_테스트() {
+        String[] message = {"email", "nickname", "phone_number"};
+        for (String msg : message) {
+            String addMsg = "already." + msg;
+            String[] messageCodes = codesResolver.resolveMessageCodes("already", msg);
+            assertThat(messageCodes).containsExactly(addMsg, "already");
+        }
     }
 }

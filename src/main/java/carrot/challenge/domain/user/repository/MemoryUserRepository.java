@@ -57,5 +57,11 @@ public class MemoryUserRepository implements UserRepository {
         findUser.setPassword(updateParam.getPassword());
         findUser.setPhone_number(updateParam.getPhone_number());
         findUser.setNickname(updateParam.getNickname());
+        findUser.setUploadFileName(updateParam.getUploadFileName());
+        findUser.setStoreFileName(updateParam.getStoreFileName());
+    }
+
+    public void clearStore() {
+        data.clear();
     }
 }

@@ -1,9 +1,8 @@
 package carrot.challenge.domain.user.service;
 
-import carrot.challenge.domain.user.dto.AddForm;
+import carrot.challenge.web.add.AddForm;
 import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.domain.user.repository.MemoryUserRepository;
-import carrot.challenge.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,10 +22,10 @@ public class MemoryUserService implements UserService {
 
     @Override
     public Long save(AddForm addForm) {
-//        if (checkAlreadyUser(addForm, mav)) {
-//            User saveUser = userRepository.save(makeUserFromAddForm(addForm));
-//            return saveUser.getId();
-//        }
+        if (memoryUserRepository.findByEmail(addForm.getEmail()).isPresent() ||
+                memoryUserRepository.findByNickname(addForm.getNickname()).isPresent() ||
+                memoryUserRepository.findByPhoneNumber(addForm.getPhone_number()).isPresent())
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
         User saveUser = memoryUserRepository.save(makeUserFromAddForm(addForm));
 
         return saveUser.getId();
@@ -40,34 +39,6 @@ public class MemoryUserService implements UserService {
         user.setNickname(addForm.getNickname());
         user.setUsername(addForm.getUsername());
         return user;
-    }
-
-//    boolean checkAlreadyUser(AddForm addForm, ModelAndView mav) {
-//        if (addForm.getUsername().length() == 0 || addForm.getEmail().length() == 0 ||
-//                addForm.getNickname().length() == 0 || addForm.getPassword().length() == 0 ||
-//                addForm.getPhone_number().length() == 0) {
-//            setMessageAndURL("입력받지 못한 항목이 있습니다.", "/user/add", mav);
-//            return false;
-//        }
-//        if (userRepository.findByEmail(addForm.getEmail()).isPresent()) {
-//            setMessageAndURL("이미 가입된 이메일입니다.", "/user/add", mav);
-//            return false;
-//        }
-//        if (userRepository.findByNickname(addForm.getNickname()).isPresent()) {
-//            setMessageAndURL("이미 사용중인 닉네임입니다.", "/user/add", mav);
-//            return false;
-//        }
-//        if (userRepository.findByPhoneNumber(addForm.getPhone_number()).isPresent()) {
-//            setMessageAndURL("이미 가입된 핸드폰 번호입니다.", "/user/add", mav);
-//            return false;
-//        }
-//        setMessageAndURL("성공적으로 가입을 완료하였습니다.", "/user", mav);
-//        return true;
-//    }
-
-    void setMessageAndURL(String message, String url, ModelAndView mav) {
-        mav.addObject("message", message);
-        mav.addObject("href", url);
     }
 
     @Override
@@ -88,5 +59,10 @@ public class MemoryUserService implements UserService {
     @Override
     public Optional<User> findByNickName(String userNick) {
         return memoryUserRepository.findByNickname(userNick);
+    }
+
+    @Override
+    public void updateUser(Long userId, User user) {
+        memoryUserRepository.update(userId, user);
     }
 }
