@@ -31,7 +31,7 @@ public class LoginController {
     }
 
     @PostMapping("login")
-    public String login(@Valid @ModelAttribute LoginForm loginForm,
+    public String login(@Valid LoginForm loginForm,
                               HttpSession session,
                               BindingResult bindingResult,
                               HttpServletResponse response) {

@@ -23,22 +23,6 @@ public class AddValidation implements Validator {
     public void validate(Object target, Errors errors) {
         AddForm addForm = (AddForm) target;
 
-        if (!StringUtils.hasText(addForm.getEmail())) {
-            errors.rejectValue("email", "required");
-        }
-        if (!StringUtils.hasText(addForm.getPassword())) {
-            errors.rejectValue("password", "required");
-        }
-        if (!StringUtils.hasText(addForm.getUsername())) {
-            errors.rejectValue("username", "required");
-        }
-        if (!StringUtils.hasText(addForm.getPhone_number())) {
-            errors.rejectValue("phone_number", "required");
-        }
-        if (!StringUtils.hasText(addForm.getNickname())) {
-            errors.rejectValue("nickname", "required");
-        }
-
         if (StringUtils.hasText(addForm.getEmail()) &&
                 userService.findByEmail(addForm.getEmail()).isPresent()) {
             errors.rejectValue("email", "already");

@@ -9,7 +9,7 @@ public class Item {
     private Long category_id;
     private String name;
     private String date;
-    private Long price;
+    private Integer price;
     private String main;
     private Long interest;
     private int status;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.Locale;
 
 @Slf4j
@@ -33,7 +34,7 @@ public class AddController {
     }
 
     @PostMapping("add")
-    public String addUser(@ModelAttribute AddForm addForm,
+    public String addUser(@Valid AddForm addForm,
                                 BindingResult bindingResult,
                                 HttpSession session,
                                 HttpServletResponse response) {

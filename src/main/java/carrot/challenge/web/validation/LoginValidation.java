@@ -26,15 +26,6 @@ public class LoginValidation implements Validator {
     public void validate(Object target, Errors errors) {
         LoginForm loginForm = (LoginForm) target;
 
-        if (!StringUtils.hasText(loginForm.getEmail())) {
-            errors.rejectValue("email", "required");
-            return;
-        }
-        if (!StringUtils.hasText(loginForm.getPassword())) {
-            errors.rejectValue("password", "required");
-            return;
-        }
-
         if (StringUtils.hasText(loginForm.getEmail())) {
             Optional<User> findUser = userService.findByEmail(loginForm.getEmail());
             if (findUser.isEmpty())

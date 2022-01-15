@@ -34,10 +34,17 @@
     gap: 10px;
 }
 
-.item, .cateText {
+.item:nth-child(1), .cateText, .name, .price {
     font-size: 25px;
 }
 
-.item:nth-child(6) {
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.main {
+    font-size: 25px;
     height: 500px;
+    width: 98%;
 }

@@ -9,15 +9,18 @@ import carrot.challenge.domain.upload.FileStore;
 import carrot.challenge.domain.upload.dto.UploadFile;
 import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.domain.user.service.MemoryUserService;
+import carrot.challenge.web.validation.AddItemValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,6 +30,7 @@ import java.util.List;
 @RequestMapping("/item")
 public class ItemController {
 
+    private final AddItemValidation addItemValidation;
     private final MemoryCategoryService memoryCategoryService;
     private final MemoryItemService memoryItemService;
     private final MemoryUserService memoryUserService;
@@ -54,13 +58,23 @@ public class ItemController {
 
     @PostMapping("/new")
     public String addItem(HttpSession session,
-                          @ModelAttribute ItemForm itemForm,
-                          RedirectAttributes redirectAttributes) throws IOException {
+                          @Valid ItemForm itemForm,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes,
+                          Model model) throws IOException {
         log.info("=== /item/new Post ===");
         log.info("category={}",itemForm.getCategory());
         log.info("main={}", itemForm.getMain());
         log.info("name={}", itemForm.getName());
         log.info("price={}", itemForm.getPrice());
+        addItemValidation.validate(itemForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            List<Category> categories = memoryCategoryService.cateList();
+            model.addAttribute("selectCate", categories);
+            return "item/newForm";
+        }
 
         Long userId = (Long)session.getAttribute("id");
 

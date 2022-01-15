@@ -4,6 +4,7 @@
 <link th:href="@{/css/newForm.css}" rel="stylesheet" type="text/css">
 <script th:inline="javascript">
     function showCate() {
+        console.log("aaa");
         if (document.getElementById("categories").style.display == "none")
             document.getElementById("categories").style.display = "block";
         else
@@ -38,22 +39,46 @@
     </div>
 </div>
 <form class="container" name="itemAddForm" th:action method="post" enctype="multipart/form-data">
-    <input class="item" type="file" name="imageFiles" multiple="multiple">
-    <input class="item" type="text" name="name" placeholder="제목">
-    <button class="item" type="button" onclick="showCate()">
-        <div th:if="${itemForm.category} eq null" class="cateText">카테고리</div>
-        <div th:unless="${itemForm.category} eq null"
-             th:text="${itemForm.category}" class="cateText">카테고리</div>
-    </button>
-    <div id="categories" style="display: none">
-        <div th:each="category : ${selectCate}" class="categories">
-            <button type="button" th:text="${category.name}" th:value="${category.name}" onclick="selectCate(this.value)">
-            </button>
+    <input class="item" type="file" name="imageFiles" multiple="multiple" th:value="${itemForm.imageFiles}">
+    <div class="item">
+        <div class="field-error" th:errors="${itemForm.name}">
+            제목 오류
+        </div>
+        <input class="name" type="text" name="name" placeholder="제목"
+               th:errorclass="field-error" th:field="${itemForm.name}">
+    </div>
+    <div class="item">
+        <div class="field-error" th:errors="${itemForm.category}">
+            카테고리 오류
+        </div>
+        <button type="button" onclick="showCate()">
+            <div th:if="${#strings.isEmpty(itemForm.category)}" class="cateText" text="카테고리">카테고리</div>
+            <div th:unless="${#strings.isEmpty(itemForm.category)}"
+                 th:text="${itemForm.category}" class="cateText">카테고리</div>
+        </button>
+        <input type="hidden" class="hidden" id="hiddenCate" name="category"
+               th:errorclass="field-error" th:field="${itemForm.category}" th:value="${itemForm.category}">
+        <div id="categories" style="display: none">
+            <div th:each="category : ${selectCate}" class="categories">
+                <button type="button" th:text="${category.name}" th:value="${category.name}" onclick="selectCate(this.value)">
+                </button>
+            </div>
         </div>
     </div>
-    <input class="item" type="text" name="price" placeholder="가격(원)">
-    <textarea class="item" type="text" name="main" placeholder="게시글 내용을 작성해주세요."></textarea>
-    <input type="hidden" id="hiddenCate" name="category" th:value="${itemForm.category}">
+    <div class="item">
+        <div class="field-error" th:errors="${itemForm.price}">
+            가격 오류
+        </div>
+        <input class="price" type="text" name="price" placeholder="가격(원)"
+               th:errorclass="field-error" th:field="${itemForm.price}">
+    </div>
+    <div class="item">
+        <div class="field-error" th:errors="${itemForm.main}">
+            내용 오류
+        </div>
+        <textarea class="main" type="text" name="main" placeholder="게시글 내용을 작성해주세요."
+                  th:errorclass="field-error" th:field="${itemForm.main}"></textarea>
+    </div>
 </form>
 </body>
 </html>
