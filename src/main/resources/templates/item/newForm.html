@@ -3,8 +3,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link th:href="@{/css/newForm.css}" rel="stylesheet" type="text/css">
 <script th:inline="javascript">
-    function selectCate() {
-        window.open('/item/new/selectCate','카테고리 선택','toolbar=no,menubar=no');
+    function showCate() {
+        if (document.getElementById("categories").style.display == "none")
+            document.getElementById("categories").style.display = "block";
+        else
+            document.getElementById("categories").style.display = "none";
+    }
+    function selectCate(select) {
+        console.log(select)
+        document.getElementsByClassName("cateText")[0].innerText = select;
+        document.getElementById("hiddenCate").value = select;
+        document.getElementById("categories").style.display = "none";
+    }
+    function submitForm() {
+        document.itemAddForm.submit();
     }
 </script>
 <head>
@@ -20,30 +32,28 @@
         <h2>중고거래 글쓰기</h2>
     </div>
     <div class="header-item">
-        <a onclick="">
+        <a onclick="submitForm()">
             <h2 class="submitBtn">완료</h2>
         </a>
     </div>
 </div>
 <form class="container" name="itemAddForm" th:action method="post" enctype="multipart/form-data">
-    <div class="item">
-        <input type="file" name="imageFiles" multiple="multiple">
+    <input class="item" type="file" name="imageFiles" multiple="multiple">
+    <input class="item" type="text" name="name" placeholder="제목">
+    <button class="item" type="button" onclick="showCate()">
+        <div th:if="${itemForm.category} eq null" class="cateText">카테고리</div>
+        <div th:unless="${itemForm.category} eq null"
+             th:text="${itemForm.category}" class="cateText">카테고리</div>
+    </button>
+    <div id="categories" style="display: none">
+        <div th:each="category : ${selectCate}" class="categories">
+            <button type="button" th:text="${category.name}" th:value="${category.name}" onclick="selectCate(this.value)">
+            </button>
+        </div>
     </div>
-    <div class="item">
-       <input type="text" name="name" placeholder="제목">
-    </div>
-    <div class="item">
-        <button onclick="selectCate()">
-            <div th:text="${itemForm.category}">카테고리</div>
-        </button>
-        <input type="hidden" id="hidden_cate" name="category" value="">
-    </div>
-    <div class="item">
-        <input type="text" name="price" placeholder="가격(원)">
-    </div>
-    <div class="item">
-        <input type="text" name="main" placeholder="게시글 내용을 작성해주세요.">
-    </div>
+    <input class="item" type="text" name="price" placeholder="가격(원)">
+    <textarea class="item" type="text" name="main" placeholder="게시글 내용을 작성해주세요."></textarea>
+    <input type="hidden" id="hiddenCate" name="category" th:value="${itemForm.category}">
 </form>
 </body>
 </html>

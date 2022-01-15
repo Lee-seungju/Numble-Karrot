@@ -38,13 +38,16 @@ public class ItemController {
         Long userId = (Long)session.getAttribute("id");
         log.info("itemController");
         log.info("userId={}", userId);
-        User user = memoryUserService.findById(userId).get();
-        log.info("user={}", user);
         if (userId == null || memoryUserService.findById(userId).isEmpty()) {
             needLogin(model);
             return "Message";
         }
+        User user = memoryUserService.findById(userId).get();
+        log.info("user={}", user);
+        List<Category> categories = memoryCategoryService.cateList();
         model.addAttribute("itemForm", new ItemForm());
+        model.addAttribute("selectCate", categories);
+        log.info("categories={}", categories);
         log.info("userId={}", userId);
         return "/item/newForm";
     }
@@ -53,6 +56,7 @@ public class ItemController {
     public String addItem(HttpSession session,
                           @ModelAttribute ItemForm itemForm,
                           RedirectAttributes redirectAttributes) throws IOException {
+        log.info("=== /item/new Post ===");
         Long userId = (Long)session.getAttribute("id");
 
         List<UploadFile> itemImageFile = fileStore.storeFiles(itemForm.getImageFiles());
