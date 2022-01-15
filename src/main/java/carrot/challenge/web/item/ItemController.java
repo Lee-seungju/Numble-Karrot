@@ -57,6 +57,11 @@ public class ItemController {
                           @ModelAttribute ItemForm itemForm,
                           RedirectAttributes redirectAttributes) throws IOException {
         log.info("=== /item/new Post ===");
+        log.info("category={}",itemForm.getCategory());
+        log.info("main={}", itemForm.getMain());
+        log.info("name={}", itemForm.getName());
+        log.info("price={}", itemForm.getPrice());
+
         Long userId = (Long)session.getAttribute("id");
 
         List<UploadFile> itemImageFile = fileStore.storeFiles(itemForm.getImageFiles());
