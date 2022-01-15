@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
 @Slf4j
@@ -34,7 +35,7 @@ public class AddController {
     @PostMapping("add")
     public String addUser(@ModelAttribute AddForm addForm,
                                 BindingResult bindingResult,
-                                Locale locale,
+                                HttpSession session,
                                 HttpServletResponse response) {
 
         addValidation.validate(addForm, bindingResult);
@@ -50,6 +51,8 @@ public class AddController {
         Cookie setCookie = new Cookie("id", Long.toString(userId));
         setCookie.setMaxAge(60*60*24*30);
         response.addCookie(setCookie);
+
+        session.setAttribute("id", userId);
 
         return "redirect:/user";
     }

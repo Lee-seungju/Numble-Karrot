@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
@@ -20,7 +21,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public String user(@CookieValue(value = "id", required = false) Long userId, Model model) {
+    public String user(@CookieValue(value = "id", required = false) Long userId,
+                       HttpSession session,
+                       Model model) {
         log.info("cookies={}", userId);
 
         // 쿠키값에 따라서 현재 로그인을 한 상태인지 아닌지 확인한다.
@@ -29,6 +32,7 @@ public class UserController {
             needLogin(model);
             return "Message";
         }
+        session.setAttribute("id", userId);
         model.addAttribute("user", userService.findById(userId).get());
         return "user/userForm";
     }

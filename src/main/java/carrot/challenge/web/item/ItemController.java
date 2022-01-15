@@ -7,6 +7,7 @@ import carrot.challenge.domain.item.service.MemoryCategoryService;
 import carrot.challenge.domain.item.service.MemoryItemService;
 import carrot.challenge.domain.upload.FileStore;
 import carrot.challenge.domain.upload.dto.UploadFile;
+import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.domain.user.service.MemoryUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -30,21 +33,28 @@ public class ItemController {
     private final FileStore fileStore;
 
     @GetMapping("/new")
-    public String item(@CookieValue(value = "id", required = false) Long userId, Model model) {
+    public String item(HttpSession session,
+                       Model model) {
+        Long userId = (Long)session.getAttribute("id");
+        log.info("itemController");
+        log.info("userId={}", userId);
+        User user = memoryUserService.findById(userId).get();
+        log.info("user={}", user);
         if (userId == null || memoryUserService.findById(userId).isEmpty()) {
             needLogin(model);
             return "Message";
         }
+        model.addAttribute("itemForm", new ItemForm());
         log.info("userId={}", userId);
-        List<Category> categories = memoryCategoryService.cateList();
-        model.addAttribute("cate", categories);
         return "/item/newForm";
     }
 
     @PostMapping("/new")
-    public String addItem(@CookieValue(value = "id", required = false) Long userId,
+    public String addItem(HttpSession session,
                           @ModelAttribute ItemForm itemForm,
                           RedirectAttributes redirectAttributes) throws IOException {
+        Long userId = (Long)session.getAttribute("id");
+
         List<UploadFile> itemImageFile = fileStore.storeFiles(itemForm.getImageFiles());
 
         Long categoryId = memoryCategoryService.findCategoryId(itemForm.getCategory());
@@ -76,5 +86,4 @@ public class ItemController {
         model.addAttribute("item", item);
         return "/item/viewItem";
     }
-
 }

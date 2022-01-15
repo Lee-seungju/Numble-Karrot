@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -31,6 +32,7 @@ public class LoginController {
 
     @PostMapping("login")
     public String login(@Valid @ModelAttribute LoginForm loginForm,
+                              HttpSession session,
                               BindingResult bindingResult,
                               HttpServletResponse response) {
 
@@ -47,11 +49,15 @@ public class LoginController {
         setCookie.setMaxAge(60*60*24*30);
         response.addCookie(setCookie);
 
+        session.setAttribute("id", userId);
+
         return "redirect:/user";
     }
 
     @GetMapping("logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request,
+                         HttpSession session,
+                         HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for(Cookie c : cookies)
@@ -61,6 +67,7 @@ public class LoginController {
                     response.addCookie(c);
                 }
         }
+        session.removeAttribute("id");
         return "redirect:/";
     }
 }
