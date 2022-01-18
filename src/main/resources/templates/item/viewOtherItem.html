@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/css/myItem.css}" rel="stylesheet" type="text/css">
+<head>
+    <style>
+        .header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-item:nth-child(1) {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        .header-item:nth-child(2) {
+            grid-column: 2 / 5;
+            grid-row: 1 / 2;
+        }
+
+        .back_img {
+            width: 50px;
+            height: auto;
+        }
+
+        .toggle-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .sold-out1, .sale1 {
+            color: #A4A4A4;
+        }
+
+        .sold-out2, .sale2 {
+            filter: brightness(150%);
+        }
+
+        .container {
+            display: grid;
+            grid-area: home;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-image {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+        }
+
+        .item:nth-child(1) {
+            grid-column: 2 / 6;
+            grid-row: 1 / 5;
+        }
+
+        .item:nth-child(2) {
+            grid-column: 6 / 11;
+            grid-row: 1 / 2;
+        }
+
+        .item:nth-child(3) {
+            grid-column: 6 / 11;
+            grid-row: 2 / 3;
+        }
+
+        .item:nth-child(4) {
+            grid-column: 6 / 11;
+            grid-row: 3 / 4;
+        }
+
+        .item:nth-child(5) {
+            grid-column: 9 / 10;
+            grid-row: 4 / 5;
+        }
+
+        .item:nth-child(6) {
+            grid-column: 10 / 11;
+            grid-row: 4 / 5;
+        }
+
+        .item:nth-child(7) {
+            border: 1px solid;
+            grid-column: 1 / 6;
+            grid-row: 5 / 7;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .item:nth-child(8) {
+            border: 1px solid;
+            grid-column: 6 / 11;
+            grid-row: 5 / 7;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .image-right {
+            width: 20px;
+            height: auto;
+        }
+
+        .status {
+            color: skyblue;
+        }
+    </style>
+    <script th:inline="javascript">
+        function toggle_all() {
+            document.getElementById("all1").style.color = "black";
+            document.getElementById("all2").style.filter = "brightness(100%)";
+            document.getElementById("sale1").style.color = "#A4A4A4";
+            document.getElementById("sale2").style.filter = "brightness(150%)";
+            document.getElementById("sold-out1").style.color = "#A4A4A4";
+            document.getElementById("sold-out2").style.filter = "brightness(150%)";
+
+            document.getElementById("all-container").style.display = "block";
+            document.getElementById("sale-container").style.display = "none";
+            document.getElementById("soldOut-container").style.display = "none";
+        }
+        function toggle_soldOut() {
+            document.getElementById("all1").style.color = "#A4A4A4";
+            document.getElementById("all2").style.filter = "brightness(150%)";
+            document.getElementById("sale1").style.color = "#A4A4A4";
+            document.getElementById("sale2").style.filter = "brightness(150%)";
+            document.getElementById("sold-out1").style.color = "black";
+            document.getElementById("sold-out2").style.filter = "brightness(100%)";
+
+            document.getElementById("all-container").style.display = "none";
+            document.getElementById("sale-container").style.display = "none";
+            document.getElementById("soldOut-container").style.display = "block";
+        }
+        function toggle_sold() {
+            document.getElementById("all1").style.color = "#A4A4A4";
+            document.getElementById("all2").style.filter = "brightness(150%)";
+            document.getElementById("sold-out1").style.color = "#A4A4A4";
+            document.getElementById("sold-out2").style.filter = "brightness(150%)";
+            document.getElementById("sale1").style.color = "black";
+            document.getElementById("sale2").style.filter = "brightness(100%)";
+
+            document.getElementById("all-container").style.display = "none";
+            document.getElementById("soldOut-container").style.display = "none";
+            document.getElementById("sale-container").style.display = "block";
+        }
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="header-item">
+        <a th:href="${oldUrl}">
+            <img th:src="@{/images/back.png}" class="back_img">
+        </a>
+    </div>
+    <div class="header-item">
+        <h2>
+            판매상품 보기
+        </h2>
+    </div>
+</div>
+<div class="toggle-container">
+    <div class="toggle-item">
+        <div id="all1" onclick="toggle_all()">
+            전체
+        </div>
+        <hr id="all2">
+    </div>
+    <div class="toggle-item">
+        <div class="sale1" id="sale1" onclick="toggle_sold()">
+            판매중
+        </div>
+        <hr class="sale2" id="sale2">
+    </div>
+    <div class="toggle-item">
+        <div class="sold-out1" id="sold-out1" onclick="toggle_soldOut()">
+            거래완료
+        </div>
+        <hr class="sold-out2" id="sold-out2">
+    </div>
+</div>
+<div id="all-container">
+    <div class="container" th:each="item : ${items}">
+        <div class="item">
+            <a th:href="@{|/item/${item.item_id}|}" style="cursor: pointer">
+                <img th:if="${#strings.isEmpty(item.storeFileName)}" th:src="@{/images/noimage.png}" alt="No image" class="home-image">
+                <img th:unless="${#strings.isEmpty(item.storeFileName)}" th:src="|/user/images/${item.storeFileName}|" alt="No image" class="home-image">
+            </a>
+        </div>
+        <div class="item">
+            제목  <span th:text="${item.name}"></span>
+        </div>
+        <div class="item">
+            장소
+        </div>
+        <div class="item">
+            가격 <span th:text="${item.price}"></span>
+            <div th:if="${item.status} == 0" class="status">
+                판매중
+            </div>
+            <div th:if="${item.status} == 1" class="status">
+                예약중
+            </div>
+            <div th:if="${item.status} == 2" class="status">
+                거래완료
+            </div>
+        </div>
+        <div class="item">
+            <img class="image-right" th:src="@{/images/comment.png}">
+            <span th:text="${item.comments.size()}"></span>
+        </div>
+        <div class="item">
+            <img class="image-right" th:src="@{/images/interest.png}">
+            <span th:text="${item.interests.size()}"></span>
+        </div>
+    </div>
+</div>
+<div id="sale-container" style="display: none">
+    <div class="container" th:each="item : ${items}" th:if="${item.status} != 2 ">
+        <div class="item">
+            <a th:href="@{|/item/${item.item_id}|}" style="cursor: pointer">
+                <img th:if="${#strings.isEmpty(item.storeFileName)}" th:src="@{/images/noimage.png}" alt="No image" class="home-image">
+                <img th:unless="${#strings.isEmpty(item.storeFileName)}" th:src="|/user/images/${item.storeFileName}|" alt="No image" class="home-image">
+            </a>
+        </div>
+        <div class="item">
+            제목  <span th:text="${item.name}"></span>
+        </div>
+        <div class="item">
+            장소
+        </div>
+        <div class="item">
+            가격 <span th:text="${item.price}"></span>
+            <div th:if="${item.status} == 0" class="status">
+                판매중
+            </div>
+            <div th:if="${item.status} == 1" class="status">
+                예약중
+            </div>
+        </div>
+        <div class="item">
+            <img class="image-right" th:src="@{/images/comment.png}">
+            <span th:text="${item.comments.size()}"></span>
+        </div>
+        <div class="item">
+            <img class="image-right" th:src="@{/images/interest.png}">
+            <span th:text="${item.interests.size()}"></span>
+        </div>
+    </div>
+</div>
+<div id="soldOut-container" style="display: none">
+    <div class="container" th:each="item : ${items}" th:if="${item.status} == 2">
+        <div class="item">
+            <a th:href="@{|/item/${item.item_id}|}" style="cursor: pointer">
+                <img th:if="${#strings.isEmpty(item.storeFileName)}" th:src="@{/images/noimage.png}" alt="No image" class="home-image">
+                <img th:unless="${#strings.isEmpty(item.storeFileName)}" th:src="|/user/images/${item.storeFileName}|" alt="No image" class="home-image">
+            </a>
+        </div>
+        <div class="item">
+            제목  <span th:text="${item.name}"></span>
+        </div>
+        <div class="item">
+            장소
+        </div>
+        <div class="item">
+            가격 <span th:text="${item.price}"></span>
+            <div class="status">
+                예약완료
+            </div>
+        </div>
+        <div class="item">
+            <img class="image-right" th:src="@{/images/comment.png}">
+            <span th:text="${item.comments.size()}"></span>
+        </div>
+        <div class="item">
+            <img class="image-right" th:src="@{/images/interest.png}">
+            <span th:text="${item.interests.size()}"></span>
+        </div>
+    </div>
+</div>
+</body>

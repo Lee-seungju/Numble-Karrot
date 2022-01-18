@@ -1,5 +1,6 @@
 package carrot.challenge.web.mypage;
 
+import carrot.challenge.domain.item.dto.Item;
 import carrot.challenge.domain.upload.FileStore;
 import carrot.challenge.domain.upload.dto.UploadFile;
 import carrot.challenge.domain.user.dto.User;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -20,7 +22,7 @@ import java.net.MalformedURLException;
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
-public class MyPageController {
+public class EditUserController {
 
     private final UserService userService;
     private final FileStore userFileStore;
@@ -48,7 +50,7 @@ public class MyPageController {
         myPageForm.setNickname(user.getNickname());
         myPageForm.setStoreFileName(user.getStoreFileName());
         myPageForm.setUploadFileName(user.getUploadFileName());
-        myPageForm.setId(user.getId());
+        myPageForm.setId(user.getUser_id());
     }
 
     @PostMapping("/edit")
@@ -58,7 +60,7 @@ public class MyPageController {
         log.info("attachUserFile={}", attachUserFile);
 
         User user = setUser(myPageForm, attachUserFile);
-        userService.updateUser(user.getId(), user);
+        userService.updateUser(user.getUser_id(), user);
 
        return "redirect:/user";
     }
@@ -77,33 +79,5 @@ public class MyPageController {
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
         return new UrlResource("file:" + userFileStore.getFullPath(filename));
-    }
-
-    /**
-     * 테스트용 데이터 추가
-     */
-    @PostConstruct
-    public void init() {
-        User user1 = new User();
-        User user2 = new User();
-        user1.setEmail("slee2");
-        user1.setPassword("slee2");
-        user1.setNickname("slee2");
-        user1.setPhone_number("slee2");
-        user1.setUsername("slee2");
-        user2.setEmail("a");
-        user2.setPassword("a");
-        user2.setNickname("a");
-        user2.setPhone_number("a");
-        user2.setUsername("a");
-        User user3 = new User();
-        user3.setEmail("b");
-        user3.setPassword("b");
-        user3.setNickname("b");
-        user3.setPhone_number("b");
-        user3.setUsername("b");
-        userService.justSave(user1);
-        userService.justSave(user2);
-        userService.justSave(user3);
     }
 }

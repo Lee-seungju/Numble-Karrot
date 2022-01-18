@@ -1,6 +1,6 @@
-package carrot.challenge.domain.item.service;
+package carrot.challenge.domain.category.service;
 
-import carrot.challenge.domain.item.dto.Category;
+import carrot.challenge.domain.category.dto.Category;
 
 import java.util.List;
 

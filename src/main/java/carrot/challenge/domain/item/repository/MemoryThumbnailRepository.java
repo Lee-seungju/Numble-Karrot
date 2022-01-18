@@ -13,16 +13,9 @@ public class MemoryThumbnailRepository implements ThumbnailRepository{
 
     @Override
     public Thumbnail save(Thumbnail thumbnail) {
-        thumbnail.setId(++sequence);
-        data.put(thumbnail.getId(), thumbnail);
+        thumbnail.setThumbnail_id(++sequence);
+        data.put(thumbnail.getThumbnail_id(), thumbnail);
         return thumbnail;
-    }
-
-    @Override
-    public Optional<Thumbnail> findById(Long itemId) {
-        return findAll().stream()
-                .filter(m -> m.getItem_id().equals(itemId))
-                .findFirst();
     }
 
     @Override
@@ -31,9 +24,6 @@ public class MemoryThumbnailRepository implements ThumbnailRepository{
     }
 
     @Override
-    public void update(Long itemId, Thumbnail updateParam) {
-        Thumbnail findThumbnail = findById(itemId).get();
-        findThumbnail.setStoreFileName(updateParam.getStoreFileName());
-        findThumbnail.setUploadFileName(updateParam.getUploadFileName());
+    public void update(Thumbnail updateParam) {
     }
 }

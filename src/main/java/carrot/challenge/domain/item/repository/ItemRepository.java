@@ -12,6 +12,7 @@ public interface ItemRepository {
     Optional<Item> findByName(String itemName);
     Optional<Item> findByUserId(Long userId);
     Optional<Item> findByCategoryId(Long categoryId);
+    List<Item> findAllByUserId(Long userId);
     List<Item> findAll();
-    void update(Long itemId, Item updateParam);
+    void update(Item updateParam);
 }

@@ -13,8 +13,8 @@ public class MemoryUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
-        user.setId(++sequence);
-        data.put(user.getId(), user);
+        user.setUser_id(++sequence);
+        data.put(user.getUser_id(), user);
         return user;
     }
 

@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link th:href="@{/css/viewItem.css}" rel="stylesheet" type="text/css">
+<head>
+    <script th:inline="javascript">
+        function showRight() {
+            let index = findIndex();
+            if (index == -1)
+                return;
+            if (document.getElementById((index + 1).toString())) {
+                document.getElementById(index.toString()).style.display = "none";
+                document.getElementById((index + 1).toString()).style.display = "block";
+            }
+        }
+        function showLeft() {
+            let index = findIndex();
+            if (index == -1)
+                return;
+            if (document.getElementById((index - 1).toString())) {
+                document.getElementById(index.toString()).style.display = "none";
+                document.getElementById((index - 1).toString()).style.display = "block";
+            }
+        }
+        function findIndex() {
+            let i = 0;
+            let size;
+            if (document.getElementById("thumbnail_size"))
+                size = document.getElementById("thumbnail_size").value;
+            else
+                return -1;
+            while (i < size) {
+                if (document.getElementById(i.toString()).style.display == "block") {
+                    return i;
+                }
+                i++;
+            }
+            return -1;
+        }
+        function changeInterest(getId) {
+            let interest = document.getElementById(getId);
+            let setValue = document.getElementById("interest");
+            let itemId = document.getElementById("item_id").value;
+            let showInterest = document.getElementById("showInterest");
+            let xhr = new XMLHttpRequest();
+
+            if (setValue.value == 'true') {
+                xhr.open('POST', '/interest/' + itemId + '/delete')
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == xhr.DONE) {
+                        if (xhr.status == 200) {
+                            interest.src = '/images/interest.png';
+                            setValue.value = 'false';
+                            let si = parseInt(showInterest.innerText);
+                            showInterest.innerText = (String)(si - 1);
+                        }
+                    }
+                }
+            } else {
+                xhr.open('POST', '/interest/' + itemId + '/add')
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == xhr.DONE) {
+                        if (xhr.status == 200) {
+                            interest.src = '/images/heart.png';
+                            setValue.value = 'true';
+                            let si = parseInt(showInterest.innerText);
+                            showInterest.innerText = (String)(si + 1);
+                        }
+                    }
+                }
+            }
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="header-item">
+        <a th:href="${oldUrl}">
+            <img th:src="@{/images/back.png}" class="back_img">
+        </a>
+    </div>
+    <div class="header-item">
+        <a th:href="@{/user}">
+            <img th:src="@{/images/home.png}" class="back_img">
+        </a>
+    </div>
+</div>
+<input type="hidden" id="thumbnail_size" th:value="${thumbnails.size()}">
+<div id="slideShow">
+    <div class="slides" th:each="thumbnail,index : ${thumbnails}">
+        <div class="slides-A" th:if="${index.index} == 0" style="display: block" th:id="${index.index}">
+            <img th:src="|/user/images/${thumbnail.storeFileName}|" alt="" class="slides-B">
+        </div>
+        <div class="slides-A" th:unless="${index.index} == 0" style="display: none" th:id="${index.index}">
+            <img th:src="|/user/images/${thumbnail.storeFileName}|" alt="" class="slides-B">
+        </div>
+    </div>
+    <a onclick="showLeft()" th:if="${thumbnails.size() != 0}">
+        <div class="slides-L">
+            <img th:src="@{/images/left-arrow.png}" alt="" class="slides-img">
+        </div>
+    </a>
+    <a onclick="showRight()" th:if="${thumbnails.size() != 0}">
+        <div class="slides-R">
+            <img th:src="@{/images/right-arrow.png}" alt="" class="slides-img">
+        </div>
+    </a>
+</div>
+<hr>
+<div class="user">
+    <div class="user-item">
+        <img th:if="${#strings.isEmpty(item.user.storeFileName)}" th:src="@{/images/defaultProfile.png}" class="user-image">
+        <img th:unless="${#strings.isEmpty(item.user.storeFileName)}" th:src="|/user/images/${item.user.storeFileName}|" class="user-image">
+    </div>
+    <div class="user-item" th:text="${item.user.nickname}">
+        닉네임
+    </div>
+</div>
+<hr>
+<div>
+    <div th:if="${item.status} == 0" class="status">
+        판매중
+    </div>
+    <div th:if="${item.status} == 1" class="status">
+        거래중
+    </div>
+    <div th:if="${item.status} == 2" class="status">
+        거래완료
+    </div>
+    <div class="container">
+        <div class="main-item">
+            <h3>
+                제목
+            </h3>
+            <div th:text="${item.name}">
+                제목 내용
+            </div>
+        </div>
+        <div class="main-item">
+            <h3>가격</h3>
+            <div th:text="${item.price}">
+                제품 가격
+            </div>
+        </div>
+        <div class="main-item">
+            <h3>카테고리</h3>
+            <div th:text="${category}">
+                카테고리 내용
+            </div>
+        </div>
+        <div class="main-item">
+            <h3>게시시간</h3>
+            <div th:text="${item.date}">게시시간</div>
+        </div>
+        <div class="main-item">
+            <h3>본문</h3>
+            <div th:text="${item.main}">본문 내용</div>
+        </div>
+        <div class="main-item">
+            <h3>관심</h3>
+            <div id="showInterest" th:text="${item.interests.size()}">관심 수</div>
+        </div>
+    </div>
+</div>
+<hr>
+<div>
+    <div class="diff-header">
+        <div class="diff-header-item">
+            <h3>
+                <span th:text="${item.user.nickname}">닉네임</span> 님의 판매 상품
+            </h3>
+        </div>
+        <div class="diff-header-item" th:onclick="|location.href='@{|/item/user/${item.user.user_id}|}'|">
+            모두 보기
+        </div>
+    </div>
+    <div class="diff-container">
+        <div class="diff-item" th:each="diffItem : ${diffItems}">
+            <img th:if="${#strings.isEmpty(diffItem.storeFileName)}" th:src="@{/images/noimage.png}" class="user-image">
+            <img th:unless="${#strings.isEmpty(diffItem.storeFileName)}" class="diff-thumbnail" th:src="|/user/images/${diffItem.storeFileName}|">
+            <div>
+                제목 <span th:text="${diffItem.name}"></span>
+            </div>
+            <div>
+                가격 <span th:text="${diffItem.price}"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="footer">
+    <div class="footer-item">
+        <input type="hidden" id="interest" th:value="${interest}">
+        <input type="hidden" id="item_id" th:value="${item.item_id}">
+        <img onclick="changeInterest('true')" id="true"
+             class="interest-image" th:if="${interest} == 'true'" th:src="@{/images/heart.png}">
+        <img onclick="changeInterest('false')" id="false"
+             class="interest-image" th:unless="${interest} == 'true'" th:src="@{/images/interest.png}">
+    </div>
+    <div class="footer-item">
+        <a th:href="@{|/item/${item.item_id}/comment|}">댓글 보기</a>
+    </div>
+</div>
+
+</body>
+</html>

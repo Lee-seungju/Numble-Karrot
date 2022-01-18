@@ -1,16 +1,16 @@
 package carrot.challenge.web.mypage;
 
-import carrot.challenge.domain.user.dto.User;
+import carrot.challenge.domain.item.dto.Item;
+import carrot.challenge.domain.item.service.ItemService;
 import carrot.challenge.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     private final UserService userService;
+    private final ItemService itemService;
 
     @GetMapping
     public String user(@CookieValue(value = "id", required = false) Long userId,
@@ -32,8 +33,10 @@ public class UserController {
             needLogin(model);
             return "Message";
         }
+        List<Item> items = itemService.findAllWithoutUser(userId);
         session.setAttribute("id", userId);
         model.addAttribute("user", userService.findById(userId).get());
+        model.addAttribute("items", items);
         return "user/userForm";
     }
 

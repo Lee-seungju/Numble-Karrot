@@ -1,11 +1,25 @@
 package carrot.challenge.domain.user.dto;
 
-import lombok.Data;
+import carrot.challenge.domain.item.dto.Comment;
+import carrot.challenge.domain.item.dto.Interest;
+import carrot.challenge.domain.item.dto.Item;
+import lombok.*;
 
-@Data
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 public class User {
 
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long user_id;
 
     private String email;
 
@@ -20,4 +34,15 @@ public class User {
     private String uploadFileName;
 
     private String storeFileName;
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    Set<Item> items;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    Set<Interest> interests;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    Set<Comment> comments;
 }

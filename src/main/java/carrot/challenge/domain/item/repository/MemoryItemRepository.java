@@ -12,8 +12,8 @@ public class MemoryItemRepository implements ItemRepository {
 
     @Override
     public Item save(Item item) {
-        item.setId(++sequence);
-        data.put(item.getId(), item);
+        item.setItem_id(++sequence);
+        data.put(item.getItem_id(), item);
         return item;
     }
 
@@ -32,7 +32,7 @@ public class MemoryItemRepository implements ItemRepository {
     @Override
     public Optional<Item> findByUserId(Long userId) {
         return findAll().stream()
-                .filter(m -> m.getUser_id().equals(userId))
+                .filter(m -> m.getUser().getUser_id().equals(userId))
                 .findFirst();
     }
 
@@ -44,21 +44,17 @@ public class MemoryItemRepository implements ItemRepository {
     }
 
     @Override
+    public List<Item> findAllByUserId(Long userId) {
+        return null;
+    }
+
+    @Override
     public List<Item> findAll() {
         return new ArrayList<>(data.values());
     }
 
     @Override
-    public void update(Long itemId, Item updateParam) {
-        Item getItem = findById(itemId).get();
-        getItem.setUser_id(updateParam.getUser_id());
-        getItem.setCategory_id(updateParam.getCategory_id());
-        getItem.setMain(updateParam.getMain());
-        getItem.setName(updateParam.getName());
-        getItem.setPrice(updateParam.getPrice());
-        getItem.setStatus(updateParam.getStatus());
-        getItem.setInterest(updateParam.getInterest());
-        getItem.setDate(updateParam.getDate());
+    public void update(Item updateParam) {
     }
 
     public void clearStore() {

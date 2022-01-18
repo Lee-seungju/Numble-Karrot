@@ -43,7 +43,7 @@ public class LoginController {
             return "user/loginForm";
         }
 
-        Long userId = userService.findByEmail(loginForm.getEmail()).get().getId();
+        Long userId = userService.findByEmail(loginForm.getEmail()).get().getUser_id();
 
         Cookie setCookie = new Cookie("id", Long.toString(userId));
         setCookie.setMaxAge(60*60*24*30);
