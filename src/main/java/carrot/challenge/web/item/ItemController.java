@@ -57,7 +57,7 @@ public class ItemController {
         model.addAttribute("selectCate", categories);
         log.info("categories={}", categories);
         log.info("userId={}", userId);
-        return "/item/newForm";
+        return "item/newForm";
     }
 
     @PostMapping("/new")
