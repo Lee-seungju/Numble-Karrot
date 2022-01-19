@@ -1,12 +1,11 @@
 package carrot.challenge.domain.user.dto;
 
-import carrot.challenge.domain.item.dto.Comment;
-import carrot.challenge.domain.item.dto.Interest;
+import carrot.challenge.domain.comment.dto.Comment;
+import carrot.challenge.domain.Interest.dto.Interest;
 import carrot.challenge.domain.item.dto.Item;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -42,7 +41,6 @@ public class User {
     @JoinColumn(name = "user_id")
     Set<Interest> interests;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     Set<Comment> comments;
 }

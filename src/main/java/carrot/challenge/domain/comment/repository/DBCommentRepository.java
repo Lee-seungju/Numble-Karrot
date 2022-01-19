@@ -1,7 +1,6 @@
-package carrot.challenge.domain.item.repository;
+package carrot.challenge.domain.comment.repository;
 
-import carrot.challenge.domain.item.dto.Comment;
-import carrot.challenge.domain.item.dto.Item;
+import carrot.challenge.domain.comment.dto.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +30,7 @@ public class DBCommentRepository implements CommentRepository{
 
     @Override
     public List<Comment> findAllByItemId(Long itemId) {
-        return em.createQuery("select u from Item u where u.item_id =: item_id", Comment.class)
+        return em.createQuery("select u from Comment u where u.item_id =: item_id", Comment.class)
                 .setParameter("item_id", itemId)
                 .getResultList();
     }

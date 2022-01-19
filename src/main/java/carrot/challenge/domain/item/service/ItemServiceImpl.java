@@ -1,18 +1,19 @@
 package carrot.challenge.domain.item.service;
 
-import carrot.challenge.domain.item.dto.Comment;
-import carrot.challenge.domain.item.dto.Interest;
+import carrot.challenge.domain.comment.repository.CommentRepository;
 import carrot.challenge.domain.item.dto.Item;
-import carrot.challenge.domain.item.dto.Thumbnail;
+import carrot.challenge.domain.thumbnail.dto.Thumbnail;
 import carrot.challenge.domain.item.repository.*;
+import carrot.challenge.domain.thumbnail.repository.DBThumbnailRepository;
 import carrot.challenge.domain.upload.dto.UploadFile;
 import carrot.challenge.domain.user.dto.User;
-import carrot.challenge.domain.user.repository.DBUserRepository;
 import carrot.challenge.web.item.ItemForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -22,11 +23,9 @@ public class ItemServiceImpl implements ItemService {
     private final DBItemRepository dbItemRepository;
     private final DBThumbnailRepository dbThumbnailRepository;
     private final CommentRepository commentRepository;
-    private final InterestRepository interestRepository;
 
     @Override
     public Long save(List<UploadFile> imageFiles, ItemForm itemForm, User user, Long categoryId) {
-
 
         Item item = Item.builder()
                 .user(user)
@@ -34,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
                 .name(itemForm.getName())
                 .main(itemForm.getMain())
                 .price(itemForm.getPrice())
-                .date(LocalDate.now().toString())
+                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .status(0)
                 .storeFileName(imageFiles.get(0).getStoreFileName())
                 .uploadFileName(imageFiles.get(0).getUploadFileName())
@@ -103,6 +102,41 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void updateItemByItemData(List<UploadFile> imageFiles, ItemForm itemForm, Long itemId, Long categoryId) {
+        Item item = dbItemRepository.findById(itemId).get();
+
+        Set<Thumbnail> thumbnails = item.getThumbnails();
+        for (Thumbnail thumbnail : thumbnails) {
+            dbThumbnailRepository.remove(thumbnail);
+        }
+
+        item.setMain(itemForm.getMain());
+        item.setName(itemForm.getName());
+        item.setPrice(itemForm.getPrice());
+        item.setStoreFileName(imageFiles.get(0).getStoreFileName());
+        item.setUploadFileName(imageFiles.get(0).getUploadFileName());
+        item.setCategory_id(categoryId);
+        item.setDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
+        Set<Thumbnail> thumbnailSet = new HashSet<>();
+
+        for (UploadFile imageFile : imageFiles) {
+            Thumbnail thumbnail = Thumbnail.builder()
+                    .storeFileName(imageFile.getStoreFileName())
+                    .uploadFileName(imageFile.getUploadFileName())
+                    .item_id(item.getItem_id())
+                    .build();
+            Thumbnail saveThumbnail = dbThumbnailRepository.save(thumbnail);
+            thumbnailSet.add(saveThumbnail);
+        }
+
+        item.setThumbnails(thumbnailSet);
+
+        dbItemRepository.update(item);
+    }
+
+
+    @Override
     public List<Thumbnail> getThumbnail(Long itemId) {
         List<Thumbnail> result = new ArrayList<>();
         List<Thumbnail> all = dbThumbnailRepository.findAll();
@@ -113,24 +147,48 @@ public class ItemServiceImpl implements ItemService {
         return result;
     }
 
+
+
     @Override
-    public List<Comment> findCommentByItemId(Long itemId) {
-        return commentRepository.findAllByItemId(itemId);
+    public String betweenDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime ldt = LocalDateTime.parse(date, formatter);
+        LocalDateTime now = LocalDateTime.now();
+        if (ChronoUnit.YEARS.between(ldt, now) != 0) {
+            return ChronoUnit.YEARS.between(ldt, now) + "년 전";
+        } else if (ChronoUnit.MONTHS.between(ldt, now) != 0) {
+            return ChronoUnit.MONTHS.between(ldt, now) + "달 전";
+        } else if (ChronoUnit.DAYS.between(ldt, now) != 0) {
+            return ChronoUnit.DAYS.between(ldt, now) + "일 전";
+        } else if (ChronoUnit.HOURS.between(ldt, now) != 0) {
+            return ChronoUnit.HOURS.between(ldt, now) + "시간 전";
+        } else if (ChronoUnit.MINUTES.between(ldt, now) != 0) {
+            return ChronoUnit.MINUTES.between(ldt, now) + "분 전";
+        }
+        return ChronoUnit.SECONDS.between(ldt, now) + "초 전";
     }
 
     @Override
-    public void addInterest(Long itemId, Long userId) {
-        Interest interest = new Interest();
-        interest.setItem_id(itemId);
-        interest.setUser_id(userId);
-        interestRepository.save(interest);
+    public List<Item> sortItems(List<Item> items) {
+        Collections.sort(items, new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime ldt1 = LocalDateTime.parse(o1.getDate(), formatter);
+                LocalDateTime ldt2 = LocalDateTime.parse(o2.getDate(), formatter);
+                if (o1.getStatus() < o2.getStatus())
+                    return -1;
+                else if (ldt1.isAfter(ldt2))
+                    return -1;
+                return 0;
+            }
+        });
+        return items;
     }
 
     @Override
-    public void deleteInterest(Long itemId, Long userId) {
-        Optional<Interest> findInterest = interestRepository.findByUserIdItemId(userId, itemId);
-        if (findInterest.isEmpty())
-            return;
-        interestRepository.delete(findInterest.get());
+    public void removeItem(Long itemId) {
+        Item item = findById(itemId).get();
+        dbItemRepository.remove(item);
     }
 }

@@ -1,7 +1,6 @@
-package carrot.challenge.domain.item.repository;
+package carrot.challenge.domain.comment.repository;
 
-import carrot.challenge.domain.item.dto.Comment;
-import carrot.challenge.domain.item.dto.Item;
+import carrot.challenge.domain.comment.dto.Comment;
 
 import java.util.List;
 import java.util.Optional;

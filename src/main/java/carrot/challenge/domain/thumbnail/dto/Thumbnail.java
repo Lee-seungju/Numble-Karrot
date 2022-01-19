@@ -1,4 +1,4 @@
-package carrot.challenge.domain.item.dto;
+package carrot.challenge.domain.thumbnail.dto;
 
 import lombok.*;
 
@@ -13,8 +13,6 @@ public class Thumbnail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long thumbnail_id;
-
-    @Column(name = "item_id")
     private Long item_id;
     private String uploadFileName;
     private String storeFileName;

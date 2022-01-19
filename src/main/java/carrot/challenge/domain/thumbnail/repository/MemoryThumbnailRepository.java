@@ -1,6 +1,6 @@
-package carrot.challenge.domain.item.repository;
+package carrot.challenge.domain.thumbnail.repository;
 
-import carrot.challenge.domain.item.dto.Thumbnail;
+import carrot.challenge.domain.thumbnail.dto.Thumbnail;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -25,5 +25,10 @@ public class MemoryThumbnailRepository implements ThumbnailRepository{
 
     @Override
     public void update(Thumbnail updateParam) {
+    }
+
+    @Override
+    public void remove(Thumbnail thumbnail) {
+
     }
 }

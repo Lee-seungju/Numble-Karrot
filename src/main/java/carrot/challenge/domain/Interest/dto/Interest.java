@@ -1,4 +1,4 @@
-package carrot.challenge.domain.item.dto;
+package carrot.challenge.domain.Interest.dto;
 
 import carrot.challenge.domain.user.dto.User;
 import lombok.Data;

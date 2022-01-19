@@ -1,10 +1,12 @@
 package carrot.challenge.domain.item.dto;
 
+import carrot.challenge.domain.Interest.dto.Interest;
+import carrot.challenge.domain.comment.dto.Comment;
+import carrot.challenge.domain.thumbnail.dto.Thumbnail;
 import carrot.challenge.domain.user.dto.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity

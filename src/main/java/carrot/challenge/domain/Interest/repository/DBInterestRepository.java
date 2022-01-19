@@ -1,7 +1,6 @@
-package carrot.challenge.domain.item.repository;
+package carrot.challenge.domain.Interest.repository;
 
-import carrot.challenge.domain.item.dto.Interest;
-import carrot.challenge.domain.item.dto.Item;
+import carrot.challenge.domain.Interest.dto.Interest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +34,12 @@ public class DBInterestRepository implements InterestRepository{
                 .setParameter("item_id", itemId)
                 .getResultList();
         return result.stream().findAny();
+    }
+
+    @Override
+    public List<Interest> findByUserId(Long userId) {
+        return em.createQuery("select u from Interest u where u.user_id =: user_id", Interest.class)
+                .setParameter("user_id", userId)
+                .getResultList();
     }
 }

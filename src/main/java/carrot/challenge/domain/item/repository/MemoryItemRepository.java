@@ -57,6 +57,11 @@ public class MemoryItemRepository implements ItemRepository {
     public void update(Item updateParam) {
     }
 
+    @Override
+    public void remove(Item item) {
+
+    }
+
     public void clearStore() {
         data.clear();
     }

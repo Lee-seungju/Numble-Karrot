@@ -85,6 +85,16 @@
             <img th:src="@{/images/home.png}" class="back_img">
         </a>
     </div>
+    <div class="header-item" th:if="${item.user.user_id} == ${session.id}">
+        <a th:href="@{|/item/${item.item_id}/edit|}">
+            <img th:src="@{/images/editing.png}" class="back_img">
+        </a>
+    </div>
+    <div class="header-item" th:if="${item.user.user_id} == ${session.id}">
+        <a th:href="@{|/item/${item.item_id}/delete|}">
+            <img th:src="@{/images/delete.png}" class="back_img">
+        </a>
+    </div>
 </div>
 <input type="hidden" id="thumbnail_size" th:value="${thumbnails.size()}">
 <div id="slideShow">
@@ -151,7 +161,7 @@
         </div>
         <div class="main-item">
             <h3>게시시간</h3>
-            <div th:text="${item.date}">게시시간</div>
+            <div th:text="${date}">게시시간</div>
         </div>
         <div class="main-item">
             <h3>본문</h3>

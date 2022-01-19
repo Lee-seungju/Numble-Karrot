@@ -34,9 +34,10 @@ public class UserController {
             return "Message";
         }
         List<Item> items = itemService.findAllWithoutUser(userId);
+        List<Item> sortItems = itemService.sortItems(items);
         session.setAttribute("id", userId);
         model.addAttribute("user", userService.findById(userId).get());
-        model.addAttribute("items", items);
+        model.addAttribute("items", sortItems);
         return "user/userForm";
     }
 

@@ -69,4 +69,9 @@ public class DBItemRepository implements ItemRepository{
     public void update(Item updateParam) {
         em.merge(updateParam);
     }
+
+    @Override
+    public void remove(Item item) {
+        em.remove(item);
+    }
 }

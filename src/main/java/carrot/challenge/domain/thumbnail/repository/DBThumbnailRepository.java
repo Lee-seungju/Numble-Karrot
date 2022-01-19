@@ -1,14 +1,12 @@
-package carrot.challenge.domain.item.repository;
+package carrot.challenge.domain.thumbnail.repository;
 
-import carrot.challenge.domain.item.dto.Item;
-import carrot.challenge.domain.item.dto.Thumbnail;
+import carrot.challenge.domain.thumbnail.dto.Thumbnail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -33,4 +31,11 @@ public class DBThumbnailRepository implements ThumbnailRepository{
     public void update(Thumbnail updateParam) {
         em.merge(updateParam);
     }
+
+    @Override
+    public void remove(Thumbnail thumbnail) {
+        em.remove(thumbnail);
+    }
+
+
 }

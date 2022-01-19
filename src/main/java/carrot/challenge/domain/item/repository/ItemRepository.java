@@ -15,4 +15,5 @@ public interface ItemRepository {
     List<Item> findAllByUserId(Long userId);
     List<Item> findAll();
     void update(Item updateParam);
+    void remove(Item item);
 }

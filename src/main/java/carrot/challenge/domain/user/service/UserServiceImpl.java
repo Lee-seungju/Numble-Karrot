@@ -1,15 +1,12 @@
 package carrot.challenge.domain.user.service;
 
-import carrot.challenge.domain.item.dto.Interest;
+import carrot.challenge.domain.Interest.dto.Interest;
 import carrot.challenge.domain.user.repository.DBUserRepository;
 import carrot.challenge.web.add.AddForm;
 import carrot.challenge.domain.user.dto.User;
-import carrot.challenge.domain.user.repository.MemoryUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

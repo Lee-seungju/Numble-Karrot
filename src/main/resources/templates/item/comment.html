@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<link th:href="@{/css/newForm.css}" rel="stylesheet" type="text/css">-->
+<head>
+    <style>
+        .back_img {
+            width: 50px;
+            height: auto;
+        }
+        .header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-item:nth-child(1) {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        .header-item:nth-child(2) {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .container {
+            padding-bottom: 80px;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer {
+            padding-bottom: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 5fr 1fr;
+        }
+
+        .footer-item:nth-child(1) {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        .footer-item:nth-child(2) {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+        }
+
+        .comment {
+            width: 98%;
+            font-size: 20px;
+        }
+
+        .submitButton {
+            width: 90%;
+            height: 90%;
+        }
+
+        .user-container {
+            height: 40px;
+            display: grid;
+            grid-template-columns: 5fr 1fr;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-item:nth-child(1) {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+        }
+
+        .user-nickname {
+            font-size: 20px;
+        }
+
+        .itemUser {
+            border-radius: 30px;
+            border: 1px solid red;
+            font-size: 15px;
+        }
+
+        .user-item:nth-child(2) {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            color: #A4A4A4;
+            padding-right: 10px;
+            font-size: 15px;
+        }
+
+
+    </style>
+    <script th:inline="javascript">
+
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="header-item">
+        <a th:href="${oldUrl}">
+            <img th:src="@{/images/back.png}" class="back_img">
+        </a>
+    </div>
+    <div class="header-item">
+        <h2>댓글</h2>
+    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="item" th:each="comment : ${comments}">
+        <div class="user-container">
+            <div class="user-item">
+                <span class="user-nickname" th:text="${comment.user.nickname}">판매자Z</span>
+                <span class="itemUser" th:if="${comment.user.user_id} == ${itemUserId}">판매자</span></div>
+            <div class="user-item" th:text="${comment.date}">날짜</div>
+        </div>
+        <div class="main" th:text="${comment.contents}">궁시렁정시렁</div>
+        <hr>
+    </div>
+</div>
+<form th:action method="post" class="footer">
+    <div class="footer-item">
+        <textarea class="comment" type="text" name="comment"
+                  th:errorclass="field-error" th:field="${commentForm.comment}"></textarea>
+    </div>
+    <div class="footer-item">
+        <button class="submitButton" type="submit">댓글 입력</button>
+    </div>
+</form>
+</body>

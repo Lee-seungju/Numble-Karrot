@@ -1,8 +1,7 @@
 package carrot.challenge.domain.item.service;
 
-import carrot.challenge.domain.item.dto.Comment;
 import carrot.challenge.domain.item.dto.Item;
-import carrot.challenge.domain.item.dto.Thumbnail;
+import carrot.challenge.domain.thumbnail.dto.Thumbnail;
 import carrot.challenge.domain.upload.dto.UploadFile;
 import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.web.item.ItemForm;
@@ -19,8 +18,12 @@ public interface ItemService {
     List<Item> findAllWithUser(Long userId);
     List<Item> findFourItemsWithUser(Long userId);
     void updateItem(Item item);
+    void updateItemByItemData(List<UploadFile> imageFiles, ItemForm itemForm, Long itemId, Long categoryId);
     List<Thumbnail> getThumbnail(Long itemId);
-    List<Comment> findCommentByItemId(Long itemId);
-    void addInterest(Long itemId, Long userId);
-    void deleteInterest(Long itemId, Long userId);
+
+
+    String betweenDate(String date);
+    List<Item> sortItems(List<Item> items);
+    void removeItem(Long itemId);
+
 }

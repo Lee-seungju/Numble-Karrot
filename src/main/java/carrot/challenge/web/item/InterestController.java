@@ -1,5 +1,6 @@
 package carrot.challenge.web.item;
 
+import carrot.challenge.domain.Interest.service.InterestService;
 import carrot.challenge.domain.item.service.ItemService;
 import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.domain.user.service.UserService;
@@ -17,13 +18,13 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class InterestController {
 
-    private final ItemService itemService;
+    private final InterestService interestService;
 
     @PostMapping("/interest/{itemId}/add")
     public String addInterest(@PathVariable Long itemId,
                               HttpSession session) {
         Long userId = (Long)session.getAttribute("id");
-        itemService.addInterest(itemId, userId);
+        interestService.addInterest(itemId, userId);
         return "ok";
     }
 
@@ -31,7 +32,7 @@ public class InterestController {
     public String deleteInterest(@PathVariable Long itemId,
                               HttpSession session) {
         Long userId = (Long)session.getAttribute("id");
-        itemService.deleteInterest(itemId, userId);
+        interestService.deleteInterest(itemId, userId);
         return "ok";
     }
 
