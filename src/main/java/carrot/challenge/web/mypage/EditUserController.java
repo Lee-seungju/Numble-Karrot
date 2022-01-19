@@ -37,7 +37,7 @@ public class EditUserController {
             return "Message";
         }
         setMyPageForm(userId, myPageForm);
-        return "/user/editUser";
+        return "user/editUser";
     }
 
     private void needLogin(Model model) {

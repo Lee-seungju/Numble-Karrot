@@ -54,7 +54,7 @@ public class CommentController {
         model.addAttribute("comments", sortComments);
         model.addAttribute("itemUserId", user_id);
         model.addAttribute("commentForm", new CommentForm());
-        return "/item/comment";
+        return "item/comment";
     }
 
     @PostMapping("{itemId}/comment")

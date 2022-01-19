@@ -142,7 +142,7 @@ public class ItemController {
         model.addAttribute("date", betweenDate);
         model.addAttribute("interest", interest);
 
-        return "/item/viewItem";
+        return "item/viewItem";
     }
 
     @GetMapping("/user/{userId}")
@@ -155,7 +155,7 @@ public class ItemController {
         model.addAttribute("oldUrl",referer);
 
         model.addAttribute("items", items);
-        return "/item/viewOtherItem";
+        return "item/viewOtherItem";
     }
 
     @GetMapping("{itemId}/edit")
@@ -176,7 +176,7 @@ public class ItemController {
         List<Category> categories = categoryService.cateList();
         model.addAttribute("itemForm", itemForm);
         model.addAttribute("selectCate", categories);
-        return "/item/newForm";
+        return "item/newForm";
     }
 
     @PostMapping("{itemId}/edit")
