@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    void    justSave(User user);
     Long  save(AddForm addForm);
     Optional<User> findById(Long userId);
     Optional<User> findByEmail(String userEmail);

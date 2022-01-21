@@ -2,6 +2,7 @@ package carrot.challenge.web.comment;
 
 import carrot.challenge.domain.comment.dto.Comment;
 import carrot.challenge.domain.comment.service.CommentService;
+import carrot.challenge.domain.item.dto.Item;
 import carrot.challenge.domain.item.service.ItemService;
 import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.domain.user.service.UserService;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -35,8 +37,9 @@ public class CommentController {
                               HttpSession session,
                               Model model) {
         Long userId = (Long)session.getAttribute("id");
-        if (userId == null || userService.findById(userId).isEmpty() ||
-                userService.findById(userId).isEmpty()) {
+        Optional<Item> item = itemService.findById(itemId);
+        if (userId == null || userService.findById(userId).isEmpty() || item.isEmpty()
+                || item.get().getUser().getUser_id() != userId) {
             needLogin(model);
             return "Message";
         }

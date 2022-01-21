@@ -16,11 +16,6 @@ public class UserServiceImpl implements UserService {
     private final DBUserRepository dbUserRepository;
 
     @Override
-    public void justSave(User user) {
-        dbUserRepository.save(user);
-    }
-
-    @Override
     public Long save(AddForm addForm) {
         if (dbUserRepository.findByEmail(addForm.getEmail()).isPresent() ||
                 dbUserRepository.findByNickname(addForm.getNickname()).isPresent() ||

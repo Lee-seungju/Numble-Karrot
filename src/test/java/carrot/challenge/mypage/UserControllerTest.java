@@ -34,13 +34,11 @@ public class UserControllerTest {
     private MockMvc mvc;
 
     @Autowired
+    @MockBean
     private UserService userService;
 
     @Autowired
     private ItemService itemService;
-
-    @MockBean
-    private DBUserRepository dbUserRepository;
 
     @Test
     public void Cookie_에_id_값이_없을때() throws Exception {
@@ -90,7 +88,7 @@ public class UserControllerTest {
                                 .nickname("user1")
                                 .build()
                 )
-        ).when(dbUserRepository).findById(anyLong());
+        ).when(userService).findById(anyLong());
         Cookie cookie = new Cookie("id", "1");
 
         //when
@@ -101,8 +99,7 @@ public class UserControllerTest {
         ModelAndView mav = mvcResult.getModelAndView();
 
         //then
-        Map<String, Object> model = mav.getModel();
-        User user = (User) model.get("user");
+        User user = (User) mav.getModel().get("user");
         assertThat(user.getEmail()).isEqualTo("user1@a");
         assertThat(user.getPassword()).isEqualTo("user1");
     }

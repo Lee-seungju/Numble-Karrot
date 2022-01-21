@@ -37,13 +37,6 @@ public class MemoryItemRepository implements ItemRepository {
     }
 
     @Override
-    public Optional<Item> findByCategoryId(Long categoryId) {
-        return findAll().stream()
-                .filter(m -> m.getCategory_id().equals(categoryId))
-                .findFirst();
-    }
-
-    @Override
     public List<Item> findAllByUserId(Long userId) {
         return null;
     }

@@ -45,14 +45,6 @@ public class DBItemRepository implements ItemRepository{
     }
 
     @Override
-    public Optional<Item> findByCategoryId(Long categoryId) {
-        List<Item> result = em.createQuery("select u from Item u where u.category_id =: category_id", Item.class)
-                .setParameter("category_id", categoryId)
-                .getResultList();
-        return result.stream().findAny();
-    }
-
-    @Override
     public List<Item> findAllByUserId(Long userId) {
          return em.createQuery("select u from Item u where u.user.user_id =: user_id", Item.class)
                 .setParameter("user_id", userId)
