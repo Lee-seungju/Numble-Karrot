@@ -114,65 +114,12 @@ public class CommentControllerTest {
     }
 
     @Test
-    void Get_세션값도_있고_아이템도_있지만_아이템주인이_아닐때_item_comment() throws Exception {
+    void Get_세션값도_있고_아이템도_있을때_item_comment() throws Exception {
         //given
         doReturn(
                 Optional.of(
                         User.builder()
-                                .user_id(1L)
-                                .email("user1@a.com")
-                                .password("user1")
-                                .username("user1")
-                                .phone_number("01012345678")
-                                .nickname("user1")
-                                .build()
-                )
-        ).when(userService).findById(anyLong());
-        doReturn(
-                Optional.of(
-                        Item.builder()
-                                .item_id(1L)
-                                .price(10000)
-                                .main("a")
-                                .status(0)
-                                .name("a")
-                                .date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                                .comments(new HashSet<>())
-                                .interests(new HashSet<>())
-                                .user(User.builder()
-                                        .user_id(2L)
-                                        .email("user2@a.com")
-                                        .password("user2")
-                                        .username("user2")
-                                        .phone_number("01022345678")
-                                        .nickname("user2")
-                                        .build())
-                                .build()
-                )
-        ).when(itemService).findById(anyLong());
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("id", 1L);
-
-        //when
-        MvcResult mvcResult = mvc.perform(get("/item/1/comment")
-                        .session(session))
-                .andExpect(status().isOk())
-                .andReturn();
-        ModelAndView mav = mvcResult.getModelAndView();
-
-        //then
-        assertThat(mav.getViewName()).isEqualTo("Message");
-        assertThat(mav.getModel().get("message")).isEqualTo("로그인이 필요한 화면입니다.");
-        assertThat(mav.getModel().get("href")).isEqualTo("/user/login");
-    }
-
-    @Test
-    void Get_세션값도_있고_아이템도_있고_아이템_주인일때_item_comment() throws Exception {
-        //given
-        doReturn(
-                Optional.of(
-                        User.builder()
-                                .user_id(1L)
+                                .user_id(2L)
                                 .email("user1@a.com")
                                 .password("user1")
                                 .username("user1")

@@ -38,8 +38,7 @@ public class CommentController {
                               Model model) {
         Long userId = (Long)session.getAttribute("id");
         Optional<Item> item = itemService.findById(itemId);
-        if (userId == null || userService.findById(userId).isEmpty() || item.isEmpty()
-                || item.get().getUser().getUser_id() != userId) {
+        if (userId == null || userService.findById(userId).isEmpty() || item.isEmpty()) {
             needLogin(model);
             return "Message";
         }
