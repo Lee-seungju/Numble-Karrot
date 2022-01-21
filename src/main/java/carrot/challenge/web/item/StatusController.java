@@ -31,7 +31,7 @@ public class StatusController {
         Long userId = (Long)session.getAttribute("id");
         Optional<Item> item = itemService.findById(itemId);
         if (userId == null || userService.findById(userId).isEmpty() || item.isEmpty()
-                || item.get().getUser().getUser_id() != userId || item.get().getStatus() != status) {
+                || item.get().getUser().getUser_id() != userId) {
             needLogin(model);
             return "Message";
         }
