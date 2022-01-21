@@ -5,16 +5,19 @@ import carrot.challenge.domain.upload.FileStore;
 import carrot.challenge.domain.upload.dto.UploadFile;
 import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.domain.user.service.UserService;
+import carrot.challenge.web.validation.EditUserValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -26,17 +29,18 @@ public class EditUserController {
 
     private final UserService userService;
     private final FileStore userFileStore;
+    private final EditUserValidation editUserValidation;
 
     @GetMapping("/edit")
     public String editUser(@CookieValue(value = "id", required = false) Long userId,
-                           @ModelAttribute MyPageForm myPageForm,
                            Model model) {
         log.info("getMapping - /user/edit");
         if (userId == null || userService.findById(userId).isEmpty()) {
             needLogin(model);
             return "Message";
         }
-        setMyPageForm(userId, myPageForm);
+        MyPageForm myPageForm = setMyPageForm(userId, new MyPageForm());
+        model.addAttribute("myPageForm", myPageForm);
         return "user/editUser";
     }
 
@@ -45,17 +49,26 @@ public class EditUserController {
         model.addAttribute("href", "/user/login");
     }
 
-    private void setMyPageForm(Long userId, MyPageForm myPageForm) {
+    private MyPageForm setMyPageForm(Long userId, MyPageForm myPageForm) {
         User user = userService.findById(userId).get();
         myPageForm.setNickname(user.getNickname());
         myPageForm.setStoreFileName(user.getStoreFileName());
         myPageForm.setUploadFileName(user.getUploadFileName());
         myPageForm.setId(user.getUser_id());
+        return myPageForm;
     }
 
     @PostMapping("/edit")
-    public String changeUserInfo(@ModelAttribute MyPageForm myPageForm) throws IOException {
-        UploadFile attachUserFile = userFileStore.storeFile(myPageForm.getImageFile());
+    public String changeUserInfo(@Valid MyPageForm myPageForm,
+                                 BindingResult bindingResult) throws IOException {
+        editUserValidation.validate(myPageForm, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "user/editUser";
+        }
+
+        UploadFile attachUserFile = null;
+        if (myPageForm.getImageFile() != null)
+            attachUserFile = userFileStore.storeFile(myPageForm.getImageFile());
 
         log.info("attachUserFile={}", attachUserFile);
 

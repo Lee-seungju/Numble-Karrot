@@ -1,3 +1,8 @@
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
 .container {
     padding-top: 30px;
     display: grid;

@@ -24,6 +24,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -83,6 +84,8 @@ public class ItemController {
         Long userId = (Long)session.getAttribute("id");
         User user = userService.findById(userId).get();
 
+        if (itemForm.getImageFiles() == null)
+            return "error/nullPicture";
         List<UploadFile> itemImageFile = fileStore.storeFiles(itemForm.getImageFiles());
 
         Long categoryId = categoryService.findCategoryId(itemForm.getCategory());
@@ -113,8 +116,7 @@ public class ItemController {
                            HttpServletRequest request,
                            Model model) {
         Long userId = (Long)session.getAttribute("id");
-        if (userId == null || userService.findById(userId).isEmpty() ||
-                userService.findById(userId).isEmpty()) {
+        if (userId == null || userService.findById(userId).isEmpty()) {
             needLogin(model);
             return "Message";
         }
@@ -160,15 +162,23 @@ public class ItemController {
 
     @GetMapping("{itemId}/edit")
     public String editItem(@PathVariable Long itemId,
+                           HttpSession session,
                            Model model) {
-        Item item = itemService.findById(itemId).get();
-        String cate = categoryService.findById(item.getCategory_id());
+        Long userId = (Long)session.getAttribute("id");
+        Optional<Item> item = itemService.findById(itemId);
+        if (userId == null || userService.findById(userId).isEmpty() || item.isEmpty()
+                || item.get().getUser().getUser_id() != userId) {
+            needLogin(model);
+            return "Message";
+        }
+
+        String cate = categoryService.findById(item.get().getCategory_id());
 
         ItemForm itemForm = new ItemForm();
         itemForm.setCategory(cate);
-        itemForm.setMain(item.getMain());
-        itemForm.setName(item.getName());
-        itemForm.setPrice(item.getPrice());
+        itemForm.setMain(item.get().getMain());
+        itemForm.setName(item.get().getName());
+        itemForm.setPrice(item.get().getPrice());
 
         String oldUrl = "/item/" + itemId;
         model.addAttribute("oldUrl", oldUrl);
@@ -194,6 +204,8 @@ public class ItemController {
             return "item/newForm";
         }
 
+        if (itemForm.getImageFiles() == null)
+            return "error/nullPicture";
         List<UploadFile> itemImageFile = fileStore.storeFiles(itemForm.getImageFiles());
         log.info("imgaefiles={}", itemImageFile);
 
@@ -207,7 +219,16 @@ public class ItemController {
     }
 
     @GetMapping("{itemId}/delete")
-    public String removeItem(@PathVariable Long itemId) {
+    public String removeItem(@PathVariable Long itemId,
+                             HttpSession session,
+                             Model model) {
+        Long userId = (Long)session.getAttribute("id");
+        Optional<Item> item = itemService.findById(itemId);
+        if (userId == null || userService.findById(userId).isEmpty() || item.isEmpty()
+                || item.get().getUser().getUser_id() != userId) {
+            needLogin(model);
+            return "Message";
+        }
         itemService.removeItem(itemId);
         return "redirect:/user";
     }

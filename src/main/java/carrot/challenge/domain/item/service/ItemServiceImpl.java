@@ -22,7 +22,6 @@ public class ItemServiceImpl implements ItemService {
 
     private final DBItemRepository dbItemRepository;
     private final DBThumbnailRepository dbThumbnailRepository;
-    private final CommentRepository commentRepository;
 
     @Override
     public Long save(List<UploadFile> imageFiles, ItemForm itemForm, User user, Long categoryId) {

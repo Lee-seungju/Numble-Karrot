@@ -17,11 +17,8 @@ public class HomeController {
     private final UserService userService;
 
     @GetMapping
-    public String home(@CookieValue(value = "id", required = false) Long userId) {
-        if (userId == null|| userService.findById(userId).isEmpty()) {
-            return "index";
-        }
-        return "redirect:/user";
+    public String home() {
+        return "index";
     }
 
 }

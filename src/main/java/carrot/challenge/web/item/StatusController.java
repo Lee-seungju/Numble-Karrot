@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -28,13 +29,14 @@ public class StatusController {
                                HttpSession session,
                                Model model) {
         Long userId = (Long)session.getAttribute("id");
-        if (userId == null || userService.findById(userId).isEmpty()) {
+        Optional<Item> item = itemService.findById(itemId);
+        if (userId == null || userService.findById(userId).isEmpty() || item.isEmpty()
+                || item.get().getUser().getUser_id() != userId || item.get().getStatus() != status) {
             needLogin(model);
             return "Message";
         }
-        Item item = itemService.findById(itemId).get();
-        item.setStatus(status);
-        itemService.updateItem(item);
+        item.get().setStatus(status);
+        itemService.updateItem(item.get());
         return "redirect:/user/item";
     }
 

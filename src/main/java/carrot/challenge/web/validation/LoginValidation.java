@@ -4,6 +4,7 @@ import carrot.challenge.domain.user.dto.User;
 import carrot.challenge.domain.user.service.UserService;
 import carrot.challenge.web.login.LoginForm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -11,6 +12,7 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class LoginValidation implements Validator {
@@ -32,10 +34,12 @@ public class LoginValidation implements Validator {
             errors.rejectValue("password", "required");
         if (StringUtils.hasText(loginForm.getEmail())) {
             Optional<User> findUser = userService.findByEmail(loginForm.getEmail());
-            if (findUser.isEmpty())
+            if (findUser.isEmpty()) {
                 errors.rejectValue("email", "noEmail");
-            else if (!findUser.get().getPassword().equals(loginForm.getPassword()))
+            }
+            else if (!findUser.get().getPassword().equals(loginForm.getPassword())) {
                 errors.rejectValue("password", "noPassword");
+            }
         }
     }
 }

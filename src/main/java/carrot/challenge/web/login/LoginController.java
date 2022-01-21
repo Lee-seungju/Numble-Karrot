@@ -32,16 +32,20 @@ public class LoginController {
 
     @PostMapping("login")
     public String login(@Valid LoginForm loginForm,
-                              HttpSession session,
-                              BindingResult bindingResult,
-                              HttpServletResponse response) {
+                        BindingResult bindingResult,
+                        HttpSession session,
+                        HttpServletResponse response) {
 
+        log.info("errors={}", bindingResult);
         loginValidation.validate(loginForm, bindingResult);
+        log.info("errors={}", bindingResult);
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "user/loginForm";
         }
+
+        log.info("errors={}", bindingResult);
 
         Long userId = userService.findByEmail(loginForm.getEmail()).get().getUser_id();
 

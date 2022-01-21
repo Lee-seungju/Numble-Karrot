@@ -7,19 +7,26 @@
 <body>
 <h1>정보 수정</h1>
 <div id="mykarrot" style="text-align: center">
-    <form class="container" th:action method="post" enctype="multipart/form-data">
+    <form class="container" th:action method="post" th:object="${myPageForm}" enctype="multipart/form-data">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메세지</p>
+        </div>
         <input name="id" th:value="${myPageForm.id}" style="display: none">
         <div class="item">
             <img th:if="${myPageForm.storeFileName} eq null" th:src="@{/images/defaultProfile.png}" alt="No image" style="max-width: 100px; max-height: 100px">
             <img th:unless="${myPageForm.storeFileName} eq null" th:src="|/user/images/${myPageForm.storeFileName}|" style="max-width: 100px; max-height: 100px">
             <div>
-                <input type="file" name="imageFile">
+                <input type="file" accept="image/png, image/gif, image/jpeg" name="imageFile">
             </div>
         </div>
         <div class="item">
             <h2>닉네임</h2>
             <div>
-                <input type="text" class="inputPlace" name="nickname" th:value="${myPageForm.nickname}">
+                <input type="text" class="inputPlace" name="nickname" th:field="*{nickname}"
+                       th:errorclass="field-error">
+                <div class="field-error" th:errors="*{nickname}">
+                    닉네임 오류
+                </div>
             </div>
         </div>
         <div class="item">

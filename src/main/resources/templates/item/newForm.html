@@ -39,7 +39,7 @@
     </div>
 </div>
 <form class="container" name="itemAddForm" th:action method="post" enctype="multipart/form-data">
-    <input class="item" type="file" name="imageFiles" multiple="multiple" th:value="${itemForm.imageFiles}">
+    <input class="item" type="file" name="imageFiles" accept="image/png, image/gif, image/jpeg" multiple="multiple" th:value="${itemForm.imageFiles}">
     <div class="item">
         <div class="field-error" th:errors="${itemForm.name}">
             제목 오류
