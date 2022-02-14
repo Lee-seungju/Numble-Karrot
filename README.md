@@ -2,7 +2,7 @@
 <div>
   넘블 챌린지 - <a href='http://54.180.83.222:8080/'>당근마켓</a>
 </div>
-<hr>
+<br>
 
 내용에 대한 블로그 - [블로그](https://velog.io/@seungju0000/Spring%EB%B0%B1%EC%97%94%EB%93%9C-%EB%84%98%EB%B8%94-%EC%B1%8C%EB%A6%B0%EC%A7%80)
 
