@@ -69,45 +69,24 @@
   - 댓글 보기, 관심 등록 토글
 <br>
 
-### 밑에는 해당 판매자가 판매하는 다른 상품을 확인할 수 있음
-
-<br>
-
-![image](https://user-images.githubusercontent.com/53372971/153957163-6a1ac3db-fdeb-4426-bda4-c5f0f25178fd.png)
-
-<br>
-
-### 본인이 상품등록을 할 수 있음 이때도 사진 등록과 함께 등록 가능함
-
-<br>
-
-![image](https://user-images.githubusercontent.com/53372971/153957580-8bcf6b6a-66d9-4944-a549-851a686015c6.png)
-
-<br>
-
-### 상품이 본인 상품일 경우 수정할 수 있음
-
-<br>
-
 ## 댓글, 관심 상품
 
 <br>
 
-![image](https://user-images.githubusercontent.com/53372971/153957789-78d94fd8-72f1-4a2e-ace9-b46a5e9c43db.png)
+<div align="center">
+  <img width="40%" alt="스크린샷 2022-06-25 오후 4 56 22" src="https://user-images.githubusercontent.com/53372971/175764273-1791b379-f136-4916-9bc9-ed1e2fb1cee8.png">
+  <img width="40%" alt="스크린샷 2022-06-25 오후 4 57 16" src="https://user-images.githubusercontent.com/53372971/175764285-b5aae266-a9b9-44ab-a6f8-161e4d7c0a6f.png">
 
-
-<br>
-
-### 모든 상품은 댓글이 존재함.
-
-<br>
-
-![image](https://user-images.githubusercontent.com/53372971/153957818-7317173b-bbb9-4385-a52d-b378bec69173.png)
+</div>
 
 <br>
 
-
-### 관심상품을 리스트로 볼 수 있음
+- 댓글
+  - 댓글을 통해 거래 가능
+  - 닉네임, 내용, 생성 날짜 등이 보여짐
+- 관심 상품
+  - 상품 하단에 하트 버튼을 통해 관심상품으로 등록 가능
+  - 해당 상품은 [홈] -> [관심목록] 에서 리스트 확인 가능
 
 <br>
 
@@ -115,8 +94,6 @@
 
 <br>
 
-![image](https://user-images.githubusercontent.com/53372971/153958165-07113f0c-b265-4847-ae3a-f17047bfdb3e.png)
-![image](https://user-images.githubusercontent.com/53372971/153958237-17ac8932-a7c8-4b30-8221-997f392fb677.png)
 
 
 <br>
