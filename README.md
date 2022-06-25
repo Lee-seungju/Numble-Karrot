@@ -29,8 +29,10 @@
 
 <br>
 <div align="center">
-  <img width="35%" src="https://user-images.githubusercontent.com/53372971/175763582-841e015e-f135-4b09-94a1-97ee4eb9ffc4.png">
-  <img width="35%" src="https://user-images.githubusercontent.com/53372971/175763616-c0a8bccc-5252-4b63-b4f4-317ba2e15c66.png">
+  <img width="30%" src="https://user-images.githubusercontent.com/53372971/175763582-841e015e-f135-4b09-94a1-97ee4eb9ffc4.png">
+  <img width="30%" src="https://user-images.githubusercontent.com/53372971/175763616-c0a8bccc-5252-4b63-b4f4-317ba2e15c66.png">
+  <img width="30%" alt="스크린샷 2022-06-25 오후 5 00 54" src="https://user-images.githubusercontent.com/53372971/175764380-ff24da2a-b706-4c3d-8622-9c2d7d4515b0.png">
+
 </div>
 <br>
 
@@ -43,6 +45,8 @@
   -  회원의 판매 내역
   -  회원 정보 수정
   -  로그아웃
+- 회원 수정
+  - 닉네임과 회원 사진 변경가능 
 <br>
 
 ## 상품 등록, 수정, 열람
@@ -93,9 +97,13 @@
 ## 거래 완료, 거래 중, 거래 가능
 
 <br>
+<div align="center">
+<img width="40%" alt="스크린샷 2022-06-25 오후 5 02 07" src="https://user-images.githubusercontent.com/53372971/175764400-78320e84-7b44-47c2-9b1d-fe401aaba363.png">
+</div>
 
-
+- 거래 기능
+  - 자신의 상품을 댓글을 통해 거래를 완료했다면, 거래 완료 버튼으로 상태 전환가능
+  - 거래 완료 상품의 경우 거래 완료 상품에서 확인 가능
+  - 그 외에 거래 중 버튼 활성 가능
 
 <br>
-
-### 자신의 판매 내역에서 판매중이라면 예약중, 거래완료 예약중이라면 판매중, 거래완료 거래완료라면 판매중, 거래중으로 변경이 가능함.
