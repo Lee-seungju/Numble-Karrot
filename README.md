@@ -1,10 +1,12 @@
-# Numble-Karrot
-<div>
-  넘블 챌린지 - <a href='http://54.180.83.222:8080/'>당근마켓</a>
-</div>
-<br>
 
-내용에 대한 블로그 - [블로그](https://velog.io/@seungju0000/Spring%EB%B0%B1%EC%97%94%EB%93%9C-%EB%84%98%EB%B8%94-%EC%B1%8C%EB%A6%B0%EC%A7%80)
+<div align="center">
+  <a href="https://www.numble.it/2dc7d971-6610-4b0a-8382-3cc46d264b98"><img src="https://user-images.githubusercontent.com/53372971/175763126-fcee4020-7392-4db4-8fe6-2cdb68ef877a.png" height="128px" alt="badge42 logo" ></a>
+  <h1>Numble-Karrot</h1>
+  <p>🏆[17일 챌린지] Spring 초기 당근마켓 서비스 구축 챌린지 TOP10%🏆</p>
+  <a href="https://velog.io/@seungju0000/Spring%EB%B0%B1%EC%97%94%EB%93%9C-%EB%84%98%EB%B8%94-%EC%B1%8C%EB%A6%B0%EC%A7%80">
+    <img alt="Velog" src ="https://img.shields.io/badge/Velog-20C997.svg?&style=for-the-badge&logo=Velog&logoColor=white"/>
+  </a>
+</div>
 
 # 주요 기능
 
