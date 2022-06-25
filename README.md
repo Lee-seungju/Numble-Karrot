@@ -16,21 +16,26 @@
 - 거래 완료, 거래중, 거래 가능 기능
 
 ## 로그인, 회원수정
-![image](https://user-images.githubusercontent.com/53372971/153955817-2a17751a-11ef-4ed6-820b-9c1de06d6986.png)
 
-![image](https://user-images.githubusercontent.com/53372971/153956671-3ade858d-6c90-4ac2-89c5-bc0afe2f9dcb.png)
-
+<div align="center">
+  <img width="33%" src="https://user-images.githubusercontent.com/53372971/153955817-2a17751a-11ef-4ed6-820b-9c1de06d6986.png">
+  <img width="30%" src="https://user-images.githubusercontent.com/53372971/175763521-14da7bfe-bbcb-4bfa-8c5c-ba489bccabcb.png">
+  <img width="33%" src="https://user-images.githubusercontent.com/53372971/175763496-f4a9015b-294b-4a73-9934-f7767719bde0.png">
+</div>
 <br>
 
-### 로그인을 할때 빈칸이나 이메일 형식이 아닌경우, 아이디와 비밀번호가 맞지 않는 경우 다시 로그인 창으로 보내줌.
+- 홈 화면에서 로그인이나 회원가입 버튼을 눌렀을 경우, 해당 버튼에 맞는 페이지로 이동
+- 빈칸이나 이메일 형식이 아닌경우 또는 아이디와 비밀번호가 맞지 않는 경우 다시 해당 폼으로 돌려보냄
 
 <br>
-
-![image](https://user-images.githubusercontent.com/53372971/153956636-b1b77fcf-fec2-4f16-a5b5-b02af054a5e4.png)
-
+<div align="center">
+  <img width="40%" src="https://user-images.githubusercontent.com/53372971/175763582-841e015e-f135-4b09-94a1-97ee4eb9ffc4.png">
+  <img width="40%" src="https://user-images.githubusercontent.com/53372971/175763616-c0a8bccc-5252-4b63-b4f4-317ba2e15c66.png">
+</div>
 <br>
 
-### 로그인 성공 후에는 다른 사람들이 올린 상품들을 볼 수 있음
+- 로그인 성공 후에는 다른 사람들이 올린 상품들을 볼 수 있음
+- 밑의 그림 토글을 이용하여 자신의 정보를 조회할 수 있음
 
 <br>
 
