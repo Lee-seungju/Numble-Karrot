@@ -8,6 +8,38 @@
   </a>
 </div>
 
+# 목차
+- [팀원](#팀원)
+- [프로젝트 목표](#프로젝트-목표)
+- [개발 및 배포환경](#개발-및-배포환경)
+- [주요 기능](#주요-기능)
+
+# 팀원✨
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/Lee-seungju"><img src="https://avatars.githubusercontent.com/u/53372971?v=4" width="100px;" alt=""/><br /><sub><b>Lee-seungju(slee2)</b></sub></a><br /><a>ALL</a></td>
+  </tr>
+</table>
+이 프로젝트는 혼자서 진행한 단독 프로젝트입니다.
+
+# 프로젝트 목표
+2022.01.07-2022.01.23 17일 기간 동안, 당근 마켓의 초기 일부 기능을 구현
+
+# 개발 및 배포환경
+
+<div align="center">
+<img width="60%" src="https://user-images.githubusercontent.com/53372971/175764577-8c94ce5c-8358-4f14-8d0a-a40b6b30b627.png">
+ </div>
+ 
+- Back End
+  - Spring Boot
+  - MySQL, H2
+  - AWS EC2
+- Front End
+  - Thymeleaf
+  - HTML, CSS, JS
+
 # 주요 기능
 
 - 회원가입, 로그인, 회원수정
