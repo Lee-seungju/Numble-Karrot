@@ -29,29 +29,26 @@
 
 <br>
 <div align="center">
-  <img width="40%" src="https://user-images.githubusercontent.com/53372971/175763582-841e015e-f135-4b09-94a1-97ee4eb9ffc4.png">
-  <img width="40%" src="https://user-images.githubusercontent.com/53372971/175763616-c0a8bccc-5252-4b63-b4f4-317ba2e15c66.png">
+  <img width="35%" src="https://user-images.githubusercontent.com/53372971/175763582-841e015e-f135-4b09-94a1-97ee4eb9ffc4.png">
+  <img width="35%" src="https://user-images.githubusercontent.com/53372971/175763616-c0a8bccc-5252-4b63-b4f4-317ba2e15c66.png">
 </div>
 <br>
 
-- 로그인 성공 후에는 다른 사람들이 올린 상품들을 볼 수 있음
-- 밑의 그림 토글을 이용하여 자신의 정보를 조회할 수 있음
-
-<br>
-
-![image](https://user-images.githubusercontent.com/53372971/153956898-3e724099-f9aa-4e1d-8344-2bf4acf8e95b.png)
-
-<br>
-
-### 회원 수정도 가능하며 이때 프로필 사진도 설정할 수 있음. 그외에 자신이 올린 판매내역과 관심목록도 확인가능.
-
+- 로그인 성공 후에는 다른 사람들이 올린 상품들 확인 가능
+  - 해당 상품의 이름, 장소, 가격
+  - 거래 여부(거래 가능, 거래 중, 거래 완료)
+  - 댓글, 관심 수
+- 밑의 그림 토글을 이용하여 자신의 정보를 조회
+  -  회원의 관심 상품
+  -  회원의 판매 내역
+  -  회원 정보 수정
+  -  로그아웃
 <br>
 
 ## 상품 등록, 수정, 열람
 
 <br>
 
-![image](https://user-images.githubusercontent.com/53372971/153957005-d5e8cf7a-74c3-4312-a8b0-7a099485f70d.png)
 
 <br>
 
